@@ -24,7 +24,7 @@ class Admins extends MY_Controller_CRUD
 	 */
 	public function __construct()
 	{
-		parent::__construct(FALSE);
+		parent::__construct();
 		$this->load->model('admins_model');
 		$this->meu_model = $this->admins_model;
 		$this->titulo = 'Administradores do Sistema';
@@ -48,7 +48,8 @@ class Admins extends MY_Controller_CRUD
 			regra_validacao('ativo', 'Ativo', '', 'class="col-md-6"', '', 'select', sim_nao()),
 		);
 		$this->validacao['ver'] = $this->validacao['editar'] = $this->validacao['adicionar'];
-		$this->validacao['editar'][0]['rules'] = '';
+		$this->validacao['editar'][1]['rules'] = '';
+		$this->validacao['editar'][2]['rules'] = 'trim';
 	}
 	/**
 	 * inicializa/configura as colunas da listagem.
@@ -73,6 +74,21 @@ class Admins extends MY_Controller_CRUD
 				'ativo'	=> 'Ativo',
 			)
 		);
+	}
+	/**
+	 * Função sobrescrita que retorna todos os dados postados
+	 * 
+	 * @param string $prefix os prefixos das chaves do array
+	 * 
+	 * @return array
+	 */
+	protected function dados_formulario($prefix = '')
+	{
+		$data = parent::dados_formulario($prefix);
+		if ( ! empty($data['senha']))
+			$data['senha'] = $this->meu_model->criptografa($data['login'], $data['senha']);
+
+		return $data;
 	}
 	/**
 	 * inicializa e configura os filtros que vieram do formulário da busca

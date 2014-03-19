@@ -55,6 +55,8 @@ define('CSS', 'assets/css/');
 define('JS', 'assets/js/');
 define('VERSAO', '1.0');
 define('N_ITENS_PAGINA', 50);
+define('TEMPO_SESSAO', 3600);
+define('HOME', 'admins');
 define('MSG_SALVO', 'Os dados foram salvos com sucesso!');
 
 /* End of file constants.php */

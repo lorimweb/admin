@@ -1,3 +1,52 @@
-body {
-	background-color: white;
+/*! nossos css personalizados */
+@import "variables.less";
+@import "mixins.less";
+
+.form-login {
+    max-width: 450px;
+    padding: 15px;
+    margin: 0 auto;
+    .form-login-heading {
+        margin-bottom: 10px;
+    }
+    .form-control {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+        .box-sizing(border-box);
+    }
+    .form-control:focus {
+        z-index: 2;
+    }
+    input[type="text"] {
+        margin-bottom: -1px;
+        .border-bottom-radius(0);
+    }
+    input[type="password"] {
+        margin-bottom: 10px;
+        .border-top-radius(0);
+    }
+} 
+
+.gg2-popup {
+    .modal-header {
+        .border-top-radius(4px);
+    }
+    .gg2-popup-primary .modal-header {
+        background-color: @brand-primary;
+        color: #fff;
+    }
+    .gg2-popup-success .modal-header {
+        background-color: @brand-success;
+    }
+    .gg2-popup-warning .modal-header {
+        background-color: @brand-warning;
+    }
+    .gg2-popup-danger .modal-header {
+        background-color: @brand-danger;
+    }
+    .gg2-popup-info .modal-header {
+        background-color: @brand-info;
+    }
 }

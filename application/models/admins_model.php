@@ -24,7 +24,42 @@ class Admins_model extends MY_Model
 		$this->tabela = 'admins';
 		$this->colunas = 'id, nome, login, ativo, senha';
 	}
+	/**
+	 * função que verifica o login e senha do admin.
+	 *
+	 * @param string  $login       o login do admin
+	 * @param string  $senha       a senha do admin
+	 * @param boolean $criptografa se é para verificar a senha criptografada.
+	 *
+	 * @return string
+	 */
+	public function login($login, $senha = '', $criptografa = TRUE)
+	{
+		if ($criptografa) $senha = $this->criptografa($login, $senha);
+		$filtro = array('login' => $login, 'senha' => $senha);
+		$this->colunas = 'id, nome';
+		$ret = $this->lista($filtro);
+		if (isset($ret['itens'][0])) 
+		{
+			$ret = $ret['itens'][0];
+			$ret->permissoes = array();
+			$ret->menu = array();
+		}
+		return $ret;
+	}
+	/**
+	 * função que criptografa a senha do admin.
+	 *
+	 * @param string $login o login do admin
+	 * @param string $senha a senha do admin
+	 *
+	 * @return string
+	 */
+	public function criptografa($login, $senha)
+	{
+		return sha1($senha.$login);
+	}
 }
 
-/* End of file usuarios_model.php */
-/* Location: ./models/usuarios_model.php */
+/* End of file admins_model.php */
+/* Location: ./models/admins_model.php */

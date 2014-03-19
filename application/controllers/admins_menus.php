@@ -24,7 +24,7 @@ class Admins_menus extends MY_Controller_CRUD
 	 */
 	public function __construct()
 	{
-		parent::__construct(FALSE);
+		parent::__construct();
 		$this->load->model('admins_menus_model');
 		$this->meu_model = $this->admins_menus_model;
 		$this->titulo = 'Menus do Painel Administrativo';

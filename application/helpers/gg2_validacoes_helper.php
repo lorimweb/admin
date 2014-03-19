@@ -97,7 +97,7 @@ if( ! function_exists('user_logado'))
 	function user_logado()
 	{
 		$ci =& get_instance();
-		return $_ci->session->userdata('nome');
+		return $ci->session->userdata('nome');
 	}
 }
 

@@ -1,3 +1,3 @@
 $(function() {
-	console.log('ok');
+    $('#gg2-popup').modal('show');
 });
