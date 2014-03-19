@@ -1,6 +1,12 @@
 1:
-    dt_registro: '2014-03-18 13:26:49'
+    id: '1'
     nome: 'Admin'
     login: 'admin'
-    senha: 'admin'
     ativo: 'S'
+    senha: 'dd94709528bb1c83d08f3088d4043f4742891f4f'
+2:
+    id: '2'
+    nome: 'GG2'
+    login: 'gihovani'
+    ativo: 'S'
+    senha: 'dd94709528bb1c83d08f3088d4043f4742891f4f'

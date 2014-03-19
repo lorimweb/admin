@@ -16,7 +16,7 @@ class Migrate extends CI_Controller
 		}
 		else
 		{
-			$this->output->set_output('Instalação feita com louvor!');
+			$this->output->set_output(utf8_decode('Instalação feita com louvor!'));
 		}
 	}
 }

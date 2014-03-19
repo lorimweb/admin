@@ -7,7 +7,7 @@
 class SomeModelTest extends CIUnit_TestCase
 {
     protected $tables = array(
-        'admins' => 'admins_fixt',
+        // 'admins' => 'admins',
     );
     
     private $_adm;
@@ -30,7 +30,7 @@ class SomeModelTest extends CIUnit_TestCase
         */
         $this->CI->load->model('admins_model');
         $this->_adm=$this->CI->admins_model;
-        $this->dbfixt($tables);
+        $this->dbfixt(array('admins',));
         
         /* 
          * the fixtures are now available in the database and so:
@@ -40,18 +40,37 @@ class SomeModelTest extends CIUnit_TestCase
         
     }
     /**
-     * @dataProvider testGetAdminsData
+     * @dataProvider testGetAdminData
      */
-    public function testGetAdmins(array $attributes, $expected)
+    public function testGetAdmin(array $attributes, $expected)
     {
-        $actual = $this->_adm->id(1);
+        $registro = $this->_adm->id($attributes['id']);
         
-        $this->assertEquals($expected, count($actual));
+        $this->assertEquals($expected, $registro->$attributes['coluna']);
     }
-    public function testGetAdminsData()
+    public function testGetAdminData()
     {
         return array(
-            array(array('nome'), 1)
+            array(array('id' => 1, 'coluna' => 'nome'), 'Admin'),
+            array(array('id' => 1, 'coluna' => 'login'), 'admin'),
+            array(array('id' => 2, 'coluna' => 'nome'), 'GG2'),
+        );
+    }
+    /**
+     * @dataProvider testGetListAdminsData
+     */
+    public function testGetListAdmins(array $attributes, $expected)
+    {
+    	$itens = $this->_adm->lista($attributes);
+        $this->assertEquals($expected, $itens['num_itens']);
+    }
+    public function testGetListAdminsData()
+    {
+        return array(
+            array(array('ativo' => 'S'), 2),
+            array(array('id > 1'), 1),
+            array(array('nome like "G%"'), 1),
+            array(array('ativo' => 'N'), 0),
         );
     }
 }
