@@ -32,12 +32,6 @@ abstract class MY_Controller_list extends MY_Controller
 	 */
 	protected $ordenar_sentido;
 	/**
-	 * O titulo do controller.
-	 * 
-	 * @var string
-	 */
-	protected $titulo;
-	/**
 	 * Os cabecalhos da listagem.
 	 * 
 	 * @var array
@@ -92,9 +86,9 @@ abstract class MY_Controller_list extends MY_Controller
 		$this->ordenar_sentido = strtolower($ordenar_sentido);
 		
 		$data = $this->init_listar();
-		$data['titulo'] = $this->titulo;
+		$data['titulo'] = $this->meu_model->titulo;
 		$this->gg2_layouts
-			->navegacao($this->titulo, $this->modulo . '/' . $this->acao, '1')
+			->navegacao($this->meu_model->titulo, $this->modulo . '/' . $this->acao, '1')
 			->view('layouts/listar', $data);
 	}
 	/**

@@ -21,8 +21,27 @@ class Admins_menus_model extends MY_Model
 	public function __construct()
 	{
 		parent::__construct();
+		$this->titulo = 'Admins -> Menus';
 		$this->tabela = 'admins_menus';
 		$this->colunas = 'id, titulo, link, ativo';
+	}
+	/**
+	 * cria a tabela dos menus
+	 *
+	 * @return integer
+	 */
+	public function cria_tabela()
+	{
+		$sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tabela.'` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `titulo` varchar(30),
+		  `link` varchar(50) DEFAULT NULL,
+		  `ativo` set(\'S\',\'N\') NOT NULL,
+		  PRIMARY KEY (`id`),
+		  UNIQUE KEY `titulo` (`titulo`)
+		)';
+		$this->db->query($sql);
+		return $this->db->affected_rows();
 	}
 }
 

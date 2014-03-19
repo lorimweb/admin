@@ -17,7 +17,6 @@ class Admins extends MY_Controller_CRUD
 	/**
 	 * Controi a classe e inicializa os parametros do crud
 	 * como o cabecalho da listagem as regras de validacao
-	 * o titulo do formulario etc...
 	 *
 	 * @return void
 	 *
@@ -27,7 +26,6 @@ class Admins extends MY_Controller_CRUD
 		parent::__construct();
 		$this->load->model('admins_model');
 		$this->meu_model = $this->admins_model;
-		$this->titulo = 'Administradores do Sistema';
 		$this->_init_cabecalho();
 		$this->_init_validacao();
 	}

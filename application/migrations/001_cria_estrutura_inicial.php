@@ -3,13 +3,39 @@
 class Migration_cria_estrutura_inicial extends CI_Migration {
 
 	/**
+	 * Os modulos que queremos carregar.
+	 * 
+	 * @var array
+	 */
+	private $_modulos = array(
+		'admins',
+		'admins_menus',
+		'banneres'
+	);
+	/**
+	 * Construtor que inicializa a classe pai CI_Migration
+	 * e da o load nos modulos que queremos criar.
+	 *
+	 * @param array $config a configuração que vai ser passada para a classe pai.
+	 * 
+	 * @return void
+	 */
+	public function __construct($config = array())
+	{
+		parent::__construct($config);
+		foreach ($this->_modulos as $modulo) {
+			$this->load->model($modulo.'_model');
+		}
+	}
+
+	/**
 	 * Instala a migracao.
 	 *
 	 * @return void
 	 */
 	public function up()
 	{
-		$this->_cria_tabela();
+		$this->_cria_tabelas();
 		$this->_add_registros();
 	}
 	/**
@@ -19,20 +45,31 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	 */
 	public function down()
 	{
-		$this->dbforge->drop_table('admins_menus');
-		$this->dbforge->drop_table('admins_sessoes');
-		$this->dbforge->drop_table('admins');
+		$this->_remove_tabelas();
 	}
 	/**
 	 * cria as tabelas
 	 *
 	 * @return void
 	 */
-	private function _cria_tabela()
+	private function _cria_tabelas()
 	{
-		$this->_cria_tabela_admins();
+		foreach ($this->_modulos as $modulo) {
+			$this->{$modulo.'_model'}->cria_tabela();
+		}
 		$this->_cria_tabela_sessoes();
-		$this->_cria_tabela_menus();
+	}
+	/**
+	 * remove as tabelas
+	 *
+	 * @return void
+	 */
+	private function _remove_tabelas()
+	{
+		$this->_modulos = array_reverse($this->_modulos);
+		foreach ($this->_modulos as $modulo) {
+			$this->dbforge->drop_table($this->{$modulo.'_model'}->tabela);
+		}
 	}
 	/**
 	 * cria as tabelas
@@ -43,26 +80,6 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	{
 		$this->_add_registros_admins();
 		$this->_add_registros_menus();
-	}
-	/**
-	 * cria a tabela dos admins
-	 *
-	 * @return integer
-	 */
-	private function _cria_tabela_admins()
-	{
-		$sql = 'CREATE TABLE IF NOT EXISTS `admins` (
-		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `dt_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-		  `nome` varchar(100) NOT NULL,
-		  `login` varchar(50) NOT NULL,
-		  `senha` varchar(50) NOT NULL,
-		  `ativo` set(\'S\',\'N\') NOT NULL,
-		  PRIMARY KEY (`id`),
-		  UNIQUE KEY `login` (`login`)
-		)';
-		$this->db->query($sql);
-		return $this->db->affected_rows();
 	}
 	/**
 	 * cria a tabela da sessao
@@ -79,24 +96,6 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 		  `ip` varchar(15) DEFAULT NULL,
 		  `admin_id` int(11) NOT NULL,
 		  PRIMARY KEY (`id`)
-		)';
-		$this->db->query($sql);
-		return $this->db->affected_rows();
-	}
-	/**
-	 * cria a tabela dos menus
-	 *
-	 * @return integer
-	 */
-	private function _cria_tabela_menus()
-	{
-		$sql = 'CREATE TABLE IF NOT EXISTS `admins_menus` (
-		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `titulo` varchar(30),
-		  `link` varchar(50) DEFAULT NULL,
-		  `ativo` set(\'S\',\'N\') NOT NULL,
-		  PRIMARY KEY (`id`),
-		  UNIQUE KEY `titulo` (`titulo`)
 		)';
 		$this->db->query($sql);
 		return $this->db->affected_rows();
@@ -124,22 +123,18 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	 */
 	private function _add_registros_menus()
 	{
-		$data = array(
-			array(
-				'titulo' => 'Admin',
-				'link' => 'admins',
+		$data = array();
+		foreach ($this->_modulos as $modulo) {
+			$data[] = array(
+				'titulo'  => $this->{$modulo.'_model'}->titulo,
+				'link' => $modulo,
 				'ativo' => 'S'
-			),
-			array(
-				'titulo' => 'Menus',
-				'link' => 'admins_menus',
-				'ativo' => 'S'
-			),
-			array(
-				'titulo'  => 'Logout',
-				'link' => 'login/logout',
-				'ativo' => 'S'
-			),
+			);
+		}
+		$data[] = array(
+			'titulo'  => 'Logout',
+			'link' => 'login/logout',
+			'ativo' => 'S'
 		);
 		foreach ($data as $dados) {
 			$this->db->insert('admins_menus', $dados);

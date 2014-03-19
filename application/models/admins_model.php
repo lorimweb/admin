@@ -21,6 +21,7 @@ class Admins_model extends MY_Model
 	public function __construct()
 	{
 		parent::__construct();
+		$this->titulo = 'Administradores';
 		$this->tabela = 'admins';
 		$this->colunas = 'id, nome, login, ativo, senha';
 	}
@@ -58,6 +59,26 @@ class Admins_model extends MY_Model
 	public function criptografa($login, $senha)
 	{
 		return sha1($senha.$login);
+	}
+	/**
+	 * cria a tabela dos admins
+	 *
+	 * @return integer
+	 */
+	public function cria_tabela()
+	{
+		$sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tabela.'` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `dt_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		  `nome` varchar(100) NOT NULL,
+		  `login` varchar(50) NOT NULL,
+		  `senha` varchar(50) NOT NULL,
+		  `ativo` set(\'S\',\'N\') NOT NULL,
+		  PRIMARY KEY (`id`),
+		  UNIQUE KEY `login` (`login`)
+		)';
+		$this->db->query($sql);
+		return $this->db->affected_rows();
 	}
 }
 

@@ -44,10 +44,11 @@ abstract class MY_Controller_crud extends MY_Controller_list
 		$data = array(
 			'action' => site_url($this->modulo . '/' . $this->acao . '/' . $id),
 			'campos' => $this->validacao,
-			'titulo' => $this->titulo,
+			'titulo' => $this->meu_model->titulo,
 			'botoes' => implode(PHP_EOL, $this->form_botoes($id)),
 			'dados'  => $dados
 		);
+		$this->gg2_layouts->navegacao($this->meu_model->titulo, $this->modulo . '/listar', '0');
 
 		return $data; 
 	}
@@ -226,14 +227,11 @@ abstract class MY_Controller_crud extends MY_Controller_list
 		}
 		else
 		{
-			$this->gg2_layouts
-				->navegacao($this->titulo, $this->modulo . '/listar', '0')
-				->navegacao('Adicionar', $this->modulo . '/' . $this->acao, '1');
-			
 			$data = $this->parametros_extra();
 			$data['validacao'] = mensagem_validacao();
 			$data['edit'] = TRUE;
 
+			$this->gg2_layouts->navegacao('Adicionar', $this->modulo . '/' . $this->acao, '1');
 			$this->_carrega_view($data);
 		}
 	}
@@ -250,13 +248,10 @@ abstract class MY_Controller_crud extends MY_Controller_list
 		if ($dados)
 		{
 			$this->_init_validacao();
-			$this->gg2_layouts
-				->navegacao($this->titulo, $this->modulo.'/listar', '0')
-				->navegacao('Ver', $this->modulo.'/'.$this->acao.'/'.$id.'/', '1');
-
 			$data = $this->parametros_extra($id, $dados);
 			$data['edit'] = FALSE;
-			
+
+			$this->gg2_layouts->navegacao('Ver', $this->modulo.'/'.$this->acao.'/'.$id.'/', '1');
 			$this->_carrega_view($data);
 		}
 		else
@@ -284,14 +279,11 @@ abstract class MY_Controller_crud extends MY_Controller_list
 			}
 			else
 			{
-				$this->gg2_layouts
-					->navegacao($this->titulo, $this->modulo.'/listar', '0')
-					->navegacao('Editar', $this->modulo.'/'.$this->acao.'/'.$id.'/', '1');
-				
 				$data = $this->parametros_extra($id, $dados);
 				$data['validacao'] = mensagem_validacao();
 				$data['edit'] = TRUE;
 
+				$this->gg2_layouts->navegacao('Editar', $this->modulo.'/'.$this->acao.'/'.$id.'/', '1');
 				$this->_carrega_view($data);
 			}
 		}
