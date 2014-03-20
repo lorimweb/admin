@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?php echo $descricao; ?>">
     <meta name="author" content="GG2 - Gihovani Filipp Pereira Demétrio">
-    <link rel="shortcut icon" href="<?php echo site_url('../favicon.png'); ?>">
+    <link rel="shortcut icon" href="<?php echo site_url('favicon.ico'); ?>">
 
     <title><?php echo $titulo; ?></title>
 

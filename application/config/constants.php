@@ -36,15 +36,15 @@ define('FOPEN_READ_WRITE_CREATE', 'a+b');
 define('FOPEN_WRITE_CREATE_STRICT', 'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
 
-if (TRUE)
+if (defined('CIUnit_Version'))
 {
 	$projeto_url = 'http://localhost/admin/';
-	$projeto_db = 'local';
+	$projeto_db = 'test';
 }
 else
 {
-	$projeto_url = 'http://gg2.com.br/admin/';
-	$projeto_db = 'default';
+	$projeto_url = 'http://localhost/admin/';
+	$projeto_db = 'local';
 }
 define('EMAIL', 'contato@gg2.com.br');
 define('URL_HTTP', $projeto_url);
