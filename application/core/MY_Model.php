@@ -50,18 +50,18 @@ class MY_Model extends CI_Model
 	/**
 	 * Função que retorna a lista com base na busca do BD
 	 * 
-	 * @param array   $filtro     os valores a serem buscados
-	 * @param string  $sort_by    coluna de referencia para ordenação
-	 * @param string  $sort_order criterio de ordem 'asc' ascendente e 'desc' decrescente'
-	 * @param integer $offset     posicao dos itens retornados
-	 * @param integer $limit      quantidade de itens retornados
-	 * @param array   $extra      algum parametro extra como having ou group by etc.
+	 * @param array   $filtro          os valores a serem buscados
+	 * @param string  $ordenar_por     coluna de referencia para ordenação
+	 * @param string  $ordenar_sentido criterio de ordem 'asc' ascendente e 'desc' decrescente'
+	 * @param integer $offset          posicao dos itens retornados
+	 * @param integer $limite          quantidade de itens retornados
+	 * @param array   $extra           algum parametro extra como having ou group by etc.
 	 * 
 	 * @return array
 	 */
-	public function lista($filtro = NULL, $sort_by = 1, $sort_order = 'asc', $offset = 0, $limit = NULL, $extra = array())
+	public function lista($filtro = NULL, $ordenar_por = 1, $ordenar_sentido = 'asc', $offset = 0, $limite = NULL, $extra = array())
 	{
-		return $this->itens($this->tabela, $this->colunas, $filtro, $sort_by, $sort_order, $offset, $limit, $extra);
+		return $this->itens($this->tabela, $this->colunas, $filtro, $ordenar_por, $ordenar_sentido, $offset, $limite, $extra);
 	}
 	/**
 	 * Função que pega a quantidade de registro a partir de um filtro
@@ -172,28 +172,28 @@ class MY_Model extends CI_Model
 	/**
 	 * Função que retorna a lista com base na busca do BD
 	 * 
-	 * @param array   $tabelas    lista de tabelas 
-	 * @param string  $colunas    string com as colunas
-	 * @param array   $filtros    os valores a serem buscados
-	 * @param string  $sort_by    coluna de referencia para ordenação
-	 * @param string  $sort_order criterio de ordem 'asc' ascendente e 'desc' decrescente'
-	 * @param integer $offset     posicao dos itens retornados
-	 * @param integer $limite     quantidade de itens retornados
-	 * @param array   $extras     algum parametro extra como having ou group by etc.
+	 * @param array   $tabelas         lista de tabelas 
+	 * @param string  $colunas         string com as colunas
+	 * @param array   $filtros         os valores a serem buscados
+	 * @param string  $ordenar_por     coluna de referencia para ordenação
+	 * @param string  $ordenar_sentido criterio de ordem 'asc' ascendente e 'desc' decrescente'
+	 * @param integer $offset          posicao dos itens retornados
+	 * @param integer $limite          quantidade de itens retornados
+	 * @param array   $extras          algum parametro extra como having ou group by etc.
 	 * 
 	 * @return array
 	 */
-	public function itens($tabelas, $colunas, $filtros = NULL, $sort_by = NULL, $sort_order = NULL, $offset = NULL, $limite = NULL, $extras = NULL)
+	public function itens($tabelas, $colunas, $filtros = NULL, $ordenar_por = NULL, $ordenar_sentido = NULL, $offset = NULL, $limite = NULL, $extras = NULL)
 	{
 		$this->db->select('SQL_CALC_FOUND_ROWS '.$colunas, FALSE);
 		$this->_tabelas($tabelas);
 		$this->_filtros($filtros);
 		$this->_extras($extras);
 
-		if ( ! empty($sort_by))
+		if ( ! empty($ordenar_por))
 		{
-			$sort_order = (strtolower($sort_order) === 'desc') ? 'desc' : 'asc';
-			$this->db->order_by($sort_by, $sort_order, FALSE);
+			$ordenar_sentido = (strtolower($ordenar_sentido) === 'desc') ? 'desc' : 'asc';
+			$this->db->order_by($ordenar_por, $ordenar_sentido, FALSE);
 		}
 		
 		if ( ! empty($limite) && isset($offset)) 
