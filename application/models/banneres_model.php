@@ -61,10 +61,11 @@ class Banneres_model extends MY_Model
 	 */
 	public function imagem_link_recortar($banner_id)
 	{
-		$link = 'banneres';
+		$link = '';
 		$dados = $this->id($banner_id);
-		if (is_file($this->pasta.$dados->imagem))
+		if ( ! empty($dados->imagem) && is_file($this->pasta . $dados->imagem))
 		{
+			$link = $this->tabela;
 			$imagem = $this->caminho . $dados->imagem;
 			list($largura, $altura) = explode('x', $this->dimensoes);
 			$link = site_url('imagens/recortar/?arquivo='.$imagem.'&altura='.$altura.'&largura='.$largura.'&retorno='.$link);
@@ -79,7 +80,7 @@ class Banneres_model extends MY_Model
 	 */
 	public function cria_tabela()
 	{
-		mkdir($this->pasta, 0777);
+		if ( ! is_dir($this->pasta)) mkdir($this->pasta, 0777);
 		$sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tabela.'` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `dt_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

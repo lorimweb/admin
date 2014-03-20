@@ -12,7 +12,13 @@ require_once (APPPATH . 'core/MY_Controller_CRUD.php');
  * @link      http://gg2.com.br
  */
 class Site extends MY_Controller {
-
+	/**
+	 * Controi a classe e inicializa a classe pai passado false para 
+	 * não verificar se o admin está logado.
+	 *
+	 * @return void
+	 *
+	 */
 	public function __construct()
 	{
 		parent::__construct(FALSE);

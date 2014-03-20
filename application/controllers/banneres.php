@@ -80,7 +80,7 @@ class Banneres extends MY_Controller_CRUD
 	 */
 	protected function parametros_extra($id = 0, $dados = NULL)
 	{
-		$data = parent::parametros_extra($id = 0, $dados = NULL);
+		$data = parent::parametros_extra($id, $dados);
 		$data['enctype'] = 'multipart/form-data';
 		return $data;
 	}
@@ -88,17 +88,36 @@ class Banneres extends MY_Controller_CRUD
 	 * Função executada apos salvar os dados, serve para decidir o que fazer apos a operação
 	 * ser feita com sucesso.
 	 *
-	 * @param array   $config as configurações ou o id do item identifcador
+	 * @param array   $id     as configurações ou o id do item identifcador
 	 * @param array   $popup  as configurações do popup
 	 * @param boolean $return se é para redirecionar ou se é para retornar o link
 	 *
 	 * @return void
-	 */
-	protected function redireciona_salvo($config = 0, $popup = NULL, $return = TRUE)
+	protected function redireciona_salvo($id = 0, $popup = NULL, $return = TRUE)
 	{
-		$data = parent::redireciona_salvo($config, $popup, $return);
-		$link = $this->meu_model->imagem_link_recortar($config);
+		$data = parent::redireciona_salvo($id, $popup, $return);
+		$link = $this->meu_model->imagem_link_recortar($id);
 		redirect($link);
+	}
+	 */
+	/**
+	 * Função sobrescrita para adicionar nos botões padrão do formulário.
+	 * o botão de recortar a imagem.
+	 *
+	 * @param string  $id     o id do item identifcador
+	 * @param boolean $voltar se é para mostrar o botão voltar
+	 *
+	 * @return array
+	 */
+	protected function form_botoes($id = 0, $voltar = TRUE)
+	{
+		$botoes = parent::form_botoes($id, $voltar);
+		$link = $this->meu_model->imagem_link_recortar($id);
+		if ($link)
+			$botoes[] = '<a href="'.$link.'" class="btn btn-default"> ' .
+				'<i class="glyphicon glyphicon-picture"></i> Recortar</a>'.PHP_EOL;
+
+		return $botoes;
 	}
 	/**
 	 * inicializa e configura os filtros que vieram do formulário da busca

@@ -10,7 +10,8 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	private $_modulos = array(
 		'admins',
 		'admins_menus',
-		'banneres'
+		'banneres',
+		'noticias'
 	);
 	/**
 	 * Construtor que inicializa a classe pai CI_Migration
