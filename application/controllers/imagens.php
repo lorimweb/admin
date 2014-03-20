@@ -8,7 +8,7 @@
  * @author    Gihovani Filipp Pereira Demétrio <gihovani@gmail.com>
  * @copyright 2014 Quantity LTDA
  * @license   http://gg2.com.br/license.html GG2
- * @version   1.0
+ * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
 class Imagens extends MY_Controller
@@ -24,6 +24,7 @@ class Imagens extends MY_Controller
 	{
 		parent::__construct(FALSE);
 	}
+
 	/**
 	 * Função que mostra o formulário para recortar uma imagem
 	 *
@@ -40,18 +41,18 @@ class Imagens extends MY_Controller
 			array('field' => 'largura',	'label' => 'Largura',	'rules' => 'trim|required'),
 			array('field' => 'altura', 	'label' => 'Altura',	'rules' => 'trim|required'),
 		);
-		$arquivo 		= $this->input->get('arquivo');
-		$altura 		= intval($this->input->get('altura'));
-		$largura 		= intval($this->input->get('largura'));
-		$retorno 		= urldecode($this->input->get('retorno'));
-		$caminho 		= realpath(APPPATH.'../'.$arquivo);
+
+		$arquivo = $this->input->get('arquivo');
+		$altura = intval($this->input->get('altura'));
+		$largura = intval($this->input->get('largura'));
+		$retorno = urldecode($this->input->get('retorno'));
+		$caminho = realpath(APPPATH.'../'.$arquivo);
 
 		if (is_file($caminho))
 		{
 			$data['imagem'] = $caminho;
 			$data['imagem_url'] = site_url($arquivo);
 		}
-		
 		$this->form_validation->set_rules($validacao);
 		if ($this->form_validation->run())
 		{
@@ -68,6 +69,7 @@ class Imagens extends MY_Controller
 				// print 2;
 			}
 		}
+
 		$data['tamanho'] = array('largura' => $largura, 'altura' => $altura);
 		$data['botoes'] = '<button type="button" onclick="javascript:history.back(1)" class="btn btn-default"> <i class="glyphicon glyphicon-arrow-left"></i> Tela Anterior</button>'.PHP_EOL;
 		$data['validacao'] = mensagem_validacao();
@@ -78,12 +80,13 @@ class Imagens extends MY_Controller
 			->arquivos_extras(JS . 'imgareaselect/scripts/recortar.js')
 			->view($this->modulo.'/'.$this->acao, $data);
 	}
+
 	/**
 	 * Função que recorta a imagem
 	 *
 	 * @return void
 	 */
-	private function _imagem_crop() 
+	private function _imagem_crop()
 	{
 		// Imagem original
 		$imagem = $this->input->post('imagem');
@@ -94,17 +97,17 @@ class Imagens extends MY_Controller
 		$topo = $this->input->post('y1');
 		$largura = $this->input->post('x2') - $esquerda;
 		$altura = $this->input->post('y2') - $topo;
-		
+
 		// Este será o tamanho final da imagem
 		$crop_width = $this->input->post('largura');
 		$crop_height = $this->input->post('altura');
-		
+
 		if ( ! list($current_width, $current_height) = getimagesize($imagem))
 			return array('danger' => 'tipo de imagem invalido');
-	
+
 		if ($extencao === 'jpeg')
 			$extencao = 'jpg';
-		switch ($extencao) 
+		switch ($extencao)
 		{
 			case 'bmp' :
 				$current_image = imagecreatefromwbmp($imagem);
@@ -121,19 +124,21 @@ class Imagens extends MY_Controller
 			default :
 				return array('danger' => 'tipo de imagem invalido');
 		}
-		
+
 		$nova_imagem = imagecreatetruecolor($crop_width, $crop_height);
-		
+
 		// preserve transparency
-		if ($extencao === 'gif' OR $extencao === 'png') {
+		if ($extencao === 'gif' OR $extencao === 'png')
+		{
 			imagecolortransparent($nova_imagem, imagecolorallocatealpha($nova_imagem, 0, 0, 0, 127));
 			imagealphablending($nova_imagem, FALSE);
 			imagesavealpha($nova_imagem, TRUE);
 		}
-		
+
 		imagecopyresampled ($nova_imagem, $current_image, 0, 0, $esquerda, $topo, $crop_width, $crop_height, $largura, $altura);
-		
-		switch ($extencao) {
+
+		switch ($extencao)
+		{
 			case 'bmp':
 				imagewbmp($nova_imagem, $imagem);
 				break;
@@ -147,9 +152,10 @@ class Imagens extends MY_Controller
 				imagepng($nova_imagem, $imagem);
 				break;
 		}
+
 		imagedestroy($current_image);
 		imagedestroy($nova_imagem);
-		
+
 		return array('success' => 'A imagem foi recortada corretamente');
 	}
 }

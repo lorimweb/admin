@@ -7,7 +7,7 @@
  * @author    Gihovani Filipp Pereira Demétrio <gihovani@gmail.com>
  * @copyright 2014 Quantity LTDA
  * @license   http://gg2.com.br/license.html GG2
- * @version   1.0
+ * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
 class Admins_menus_model extends MY_Model 

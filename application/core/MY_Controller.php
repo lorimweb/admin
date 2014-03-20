@@ -8,7 +8,7 @@
  * @author    Gihovani Filipp Pereira Demétrio <gihovani@gmail.com>
  * @copyright 2012-2014 GG2 Soluções
  * @license   http://gg2.com.br/license.html GG2 Soluções
- * @version   1.0
+ * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
 class MY_Controller extends CI_Controller 
@@ -53,7 +53,7 @@ class MY_Controller extends CI_Controller
 		$this->modulo = $this->router->class;
 		$this->acao = $this->router->method;
 		
-		$this->load->library(array('Gg2_layouts','Gg2_listagem','Gg2_filtros','Gg2_sessao'));
+		$this->load->library(array('gg2_layouts','gg2_listagem','gg2_filtros','gg2_sessao'));
 		$this->load->helper(array('gg2_extra','gg2_formatacoes','gg2_html','gg2_validacoes'));
 		if ($verificar_login)
 		{

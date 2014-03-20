@@ -8,7 +8,7 @@ require_once(APPPATH . 'core/MY_Controller_LIST.php');
  * @author    Gihovani Filipp Pereira Demétrio <gihovani@gmail.com>
  * @copyright 2012-2014 GG2 Soluções
  * @license   http://gg2.com.br/license.html GG2 Soluções
- * @version   1.0
+ * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
 abstract class MY_Controller_crud extends MY_Controller_list 

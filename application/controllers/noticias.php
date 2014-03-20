@@ -9,7 +9,7 @@ require_once (APPPATH . 'core/MY_Controller_CRUD.php');
  * @author    Gihovani Filipp Pereira Demétrio <gihovani@gmail.com>
  * @copyright 2014 Quantity LTDA
  * @license   http://gg2.com.br/license.html GG2
- * @version   1.0
+ * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
 class Noticias extends MY_Controller_CRUD 
