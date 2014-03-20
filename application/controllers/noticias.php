@@ -12,7 +12,7 @@ require_once (APPPATH . 'core/MY_Controller_CRUD.php');
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Noticias extends MY_Controller_CRUD 
+class Noticias extends MY_Controller_CRUD
 {
 	/**
 	 * Controi a classe e inicializa os parametros do crud
@@ -29,7 +29,7 @@ class Noticias extends MY_Controller_CRUD
 		$this->_init_cabecalho();
 		$this->_init_validacao();
 	}
-	
+
 	/**
 	 * inicializa/configura as regras de validação e os campos do formulário dinamico.
 	 *
@@ -40,11 +40,11 @@ class Noticias extends MY_Controller_CRUD
 	{
 		$this->validacao = array(
 			regra_validacao(
-				'imagem', 
+				'imagem',
 				'Imagem <small>('.$this->meu_model->dimensoes.'px / jpg,png,gif,swf)</small>',
-				'trim|callback_envia_arquivo[imagem,'.$this->meu_model->pasta.'/,0,gif|jpg|jepg|png|swf]', 
-				'class="col-md-3"', 
-				'', 
+				'trim|callback_envia_arquivo[imagem,'.$this->meu_model->pasta.'/,0,gif|jpg|jepg|png|swf]',
+				'class="col-md-3"',
+				'',
 				'file'
 			),
 			regra_validacao('titulo', 'Título', '', 'class="col-md-5"'),

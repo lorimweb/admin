@@ -80,15 +80,15 @@ class Gg2_filtros
 			for ($i = 0; $i < $this->qtd_itens; $i++)
 			{
 				$valor = isset($this->_itens[$i]['valor']) ? $this->_itens[$i]['valor'] : '';
-				$valor_campo = (isset($this->_valores[$this->_itens[$i]['nome']]) 
-					&& ( ! empty($this->_valores[$this->_itens[$i]['nome']]) 
+				$valor_campo = (isset($this->_valores[$this->_itens[$i]['nome']])
+					&& ( ! empty($this->_valores[$this->_itens[$i]['nome']])
 						OR $this->_valores[$this->_itens[$i]['nome']] === '0')
 					) ? $this->_valores[$this->_itens[$i]['nome']] : $valor;
 
 				if ($this->_itens[$i]['tipo'] !== 'hidden')
 				{
-					$formulario .= '<td width="' . intval(100/$this->_colunas) . '%"' . 
-						( ! empty($this->_itens[$i]['colspan']) ? ' colspan="' . $this->_itens[$i]['colspan'] . '"' : '') . 
+					$formulario .= '<td width="' . intval(100 / $this->_colunas) . '%"' .
+						( ! empty($this->_itens[$i]['colspan']) ? ' colspan="' . $this->_itens[$i]['colspan'] . '"' : '') .
 						'>' . PHP_EOL;
 					$formulario .= '<div class="form-group">' . PHP_EOL;
 					$formulario .= '<label for="gg2-f-'.$this->_itens[$i]['nome'].'" title="'.$this->_itens[$i]['descricao'].'">';
@@ -122,7 +122,7 @@ class Gg2_filtros
 			$formulario .= $hidden;
 			$formulario .= '</form>' . PHP_EOL;
 			$formulario = str_replace('<tr></tr>', '', $formulario);
-		} 
+		}
 		else
 		{
 			$formulario = '';
@@ -147,7 +147,7 @@ class Gg2_filtros
 				}
 				if ( ! empty($valor) OR $valor === '0')
 				{
-					switch ($item['tipo']) 
+					switch ($item['tipo'])
 					{
 						case 'select':
 							foreach ($item['itens'] as $opcoes)
@@ -160,7 +160,7 @@ class Gg2_filtros
 
 							break;
 						case 'hidden':
-							$parametro = $item['where'];							
+							$parametro = $item['where'];
 							break;
 						default:
 							if (empty($valor)) $valor = '%';
@@ -193,7 +193,7 @@ class Gg2_filtros
 			{
 				if (gettype($valor) === 'array')
 					$valor = implode(',', $valor);
-				
+
 				$parametros .= '&gg2-f['.$id.']='.$valor;
 			}
 		}
@@ -233,11 +233,11 @@ class Gg2_filtros
 	{
 		if (gettype($selecionado) === 'array')
 			$selecionado = implode(',', $selecionado);
-		
+
 		$campo = '';
 		$item['extra'] = isset($item['extra']) ? $item['extra'] : '';
 		$item['tipo'] = isset($item['tipo']) ? $item['tipo'] : 'text';
-		switch ($item['tipo']) 
+		switch ($item['tipo'])
 		{
 			case 'select':
 				$campo .= '<select name="gg2-f['.$item['nome'].']" id="gg2-f-'.$item['nome'].'" '.$item['extra'].'>' . PHP_EOL;
@@ -256,9 +256,11 @@ class Gg2_filtros
 					$selecionado = explode(' ', $selecionado);
 					$selecionado = implode('/', array_reverse(explode('-', $selecionado[0])));
 				}
-				if(strstr($item['extra'], 'class="')) $item['extra'] = str_replace('class="', 'class="gg2-date ', $item['extra']);
-				else $item['extra'] .= ' class="gg2-date"';
-				
+				if(strstr($item['extra'], 'class="'))
+					$item['extra'] = str_replace('class="', 'class="gg2-date ', $item['extra']);
+				else
+					$item['extra'] .= ' class="gg2-date"';
+
 				$campo .= '<input type="text" name="gg2-f['.$item['nome'].']" id="gg2-f-'.$item['nome'].'" value="'.$selecionado.'" '.$item['extra'].' />' . PHP_EOL;
 				break;
 			case 'datetime':
@@ -294,10 +296,10 @@ class Gg2_filtros
 		$this->_colunas = ! empty($colunas) ? intval($colunas) : 3;
 		$this->_botoes = ! empty($botoes) ? $botoes : '';
 		$this->qtd_itens = sizeof($this->_itens);
-		
+
 		return $this;
 	}
 }
 
-/* End of file Gg2_filtros.php */
-/* Location: ./libraries/Gg2_filtros.php */
+/* End of file gg2_filtros.php */
+/* Location: ./libraries/gg2_filtros.php */

@@ -21,16 +21,16 @@ if( ! function_exists('slug'))
 	 * 
 	 * @return string
 	 */
-	function slug($string) 
+	function slug($string)
 	{
-		if (is_string($string)) 
+		if (is_string($string))
 		{
 			$string = strtolower(trim(utf8_decode($string)));
 
 			$before = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr';
-			$after  = 'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr';           
+			$after  = 'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr';
 			$string = strtr($string, utf8_decode($before), $after);
-					
+
 			$replace = array(
 				'/[^a-z0-9.-]/'	=> '-',
 				'/-+/'			=> '-',
@@ -52,11 +52,11 @@ if( ! function_exists('formata_data_hora_mysql'))
 	 * 
 	 * @return datetime
 	 */
-	function formata_data_hora_mysql($data, $agora = TRUE) 
+	function formata_data_hora_mysql($data, $agora = TRUE)
 	{
 		$data = explode(' ', $data);
 		$data[0] = formata_data_mysql($data[0], FALSE);
-		
+
 		if($data[0])
 		{
 			if(strlen($data[1]) === 5)
@@ -72,7 +72,7 @@ if( ! function_exists('formata_data_hora_mysql'))
 }
 
 if( ! function_exists('formata_data_mysql'))
-{ 
+{
 	/**
 	 * Função que retorna uma data (date) no formato do mysql
 	 *

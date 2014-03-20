@@ -84,7 +84,7 @@ abstract class MY_Controller_list extends MY_Controller
 	{
 		$this->ordenar_por = $ordenar_por;
 		$this->ordenar_sentido = strtolower($ordenar_sentido);
-		
+
 		$data = $this->init_listar();
 		$data['titulo'] = $this->meu_model->titulo;
 		$this->gg2_layouts
@@ -99,12 +99,12 @@ abstract class MY_Controller_list extends MY_Controller
 	protected function botoes_filtro()
 	{
 		$botoes = array();
-		if (tem_permissao($this->modulo, 'adicionar')) 
+		if (tem_permissao($this->modulo, 'adicionar'))
 		{
 			$botoes[] = '<a class="btn btn-default" id="adicionar_' . $this->modulo . '" href="' . site_url($this->modulo . '/adicionar') . '"> '.
 				'<i class="glyphicon glyphicon-plus"></i> Adicionar Novo</a>';
 		}
-		if (tem_permissao($this->modulo, 'exportar')) 
+		if (tem_permissao($this->modulo, 'exportar'))
 		{
 			$query = $this->input->query_string();
 			$botoes[] = ' <a class="btn btn-default" id="exportar_xls" href="' . site_url($this->modulo . '/exportar/?' . $query) .'"> '.
@@ -121,18 +121,18 @@ abstract class MY_Controller_list extends MY_Controller
 	protected function botoes_listar()
 	{
 		$botoes = array();
-		if(tem_permissao($this->modulo, 'ver')) 
+		if(tem_permissao($this->modulo, 'ver'))
 		{
 			$botoes[] = '<a href="'.site_url($this->modulo . '/ver/[id]').'" title="Vizualizar Item ID: [id]"> '.
 				'<i class="glyphicon glyphicon-folder-open"></i></a>';
 		}
-		if(tem_permissao($this->modulo, 'editar')) 
+		if(tem_permissao($this->modulo, 'editar'))
 		{
 			$botoes[] = '<a href="'.site_url($this->modulo . '/editar/[id]').'" title="Alterar Item ID: [id]"> ' .
 				'<i class="glyphicon glyphicon-pencil"></i></a>';
 
 		}
-		if(tem_permissao($this->modulo, 'remover')) 
+		if(tem_permissao($this->modulo, 'remover'))
 		{
 			$botoes[] = '<a href="'.site_url($this->modulo . '/remover/[id]').'" title="Remover Item ID: [id]"> ' .
 				'<i class="glyphicon glyphicon-trash"></i></a>';
@@ -153,18 +153,18 @@ abstract class MY_Controller_list extends MY_Controller
 	protected function init_listagem($itens = array(), $url = '', $exportar = FALSE, $selecionavel = array())
 	{
 		$config = array('itens' => $itens);
-		if ( ! $exportar) 
+		if ( ! $exportar)
 		{
 			$config['botoes'] = $this->botoes_listar();
 			$config['cabecalhos'] = isset($this->cabecalho['listar']) ? $this->cabecalho['listar'] : $this->cabecalho;
 			$config['selecionavel'] = empty($selecionavel) ? array('chave' => $this->meu_model->id, 'display' => 'none') : $selecionavel;
 			$config['url'] = $url;
-			$config['ordenar_por'] = pega_chave_array($config['cabecalhos'], ($this->ordenar_por-1));
+			$config['ordenar_por'] = pega_chave_array($config['cabecalhos'], ($this->ordenar_por - 1));
 			$config['ordenar_sentido'] = $this->ordenar_sentido;
 
 			return $this->gg2_listagem->init($config)->html();
 		}
-		else 
+		else
 		{
 			$config['cabecalhos'] = isset($this->cabecalho['exportar']) ? $this->cabecalho['exportar'] : $this->cabecalho;
 
@@ -190,8 +190,8 @@ abstract class MY_Controller_list extends MY_Controller
 
 		$url = site_url($this->modulo.'/'.$this->acao.'/[sort_by]/[sort_order]').'?'.$parametros_url;
 
-		$data['num_itens'] = ($offset+1) . ' - ' . (
-				($offset+N_ITENS_PAGINA) > $lista['num_itens'] ? $lista['num_itens'] : $offset+N_ITENS_PAGINA
+		$data['num_itens'] = ($offset + 1) . ' - ' . (
+			($offset + N_ITENS_PAGINA) > $lista['num_itens'] ? $lista['num_itens'] : $offset + N_ITENS_PAGINA
 		) . ' de '.$lista['num_itens'];
 
 		$data['listagem'] = $this->init_listagem($lista['itens'], $url);

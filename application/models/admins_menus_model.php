@@ -10,7 +10,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Admins_menus_model extends MY_Model 
+class Admins_menus_model extends MY_Model
 {
 	/**
 	 * Construtor que inicializa a classe pai MY_Model

@@ -11,7 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Gg2_listagem 
+class Gg2_listagem
 {
 	/**
 	 * Configura se a linha eh selecionavel e qual o nome do campo.
@@ -81,10 +81,10 @@ class Gg2_listagem
 	 * 
 	 * @return String
 	 */
-	public function __construct($config = NULL) 
+	public function __construct($config = NULL)
 	{
 		if (isset($config))
-			$this->init($config); 
+			$this->init($config);
 	}
 
 	/**
@@ -109,7 +109,7 @@ class Gg2_listagem
 	 * @return string
 	 */
 	public function html()
-	{	
+	{
 		$largura_total = ( ! empty($this->_larguras)) ? array_sum($this->_larguras) : '100%';
 		$conteudo  = '<table width="' . $largura_total . '" class="gg2-listagem table table-striped">' . PHP_EOL;
 		$conteudo .= $this->_caption();
@@ -160,7 +160,7 @@ class Gg2_listagem
 	 *
 	 * @return string
 	 */
-	private function _caption() 
+	private function _caption()
 	{
 		$conteudo = ( ! empty($this->_caption)) ? '<caption>'.$this->_caption.'</caption>' . PHP_EOL : '';
 		return $conteudo;
@@ -170,7 +170,7 @@ class Gg2_listagem
 	 *
 	 * @return string
 	 */
-	private function _cabecalho() 
+	private function _cabecalho()
 	{
 		$conteudo = '';
 		if ( empty($this->_cabecalhos) && ! empty($this->_itens))
@@ -190,7 +190,7 @@ class Gg2_listagem
 				$input = '';
 			}
 			$tmp = 1;
-			foreach ($this->_cabecalhos AS $chave => $cabecalho) 
+			foreach ($this->_cabecalhos AS $chave => $cabecalho)
 			{
 				$conteudo .= $this->_html_cabecalho($cabecalho, $chave, $tmp, $input);
 				$input = '';
@@ -211,12 +211,12 @@ class Gg2_listagem
 	 *
 	 * @return string
 	 */
-	private function _itens() 
+	private function _itens()
 	{
 		$conteudo = '<tbody>' . PHP_EOL;
 		$chaves = array_keys($this->_cabecalhos);
 		$tamanho = sizeof($chaves);
-		if (count($this->_itens)) 
+		if (count($this->_itens))
 		{
 			foreach ($this->_itens as $item)
 			{
@@ -230,7 +230,7 @@ class Gg2_listagem
 				{
 					$input = '';
 				}
-				for ($i = 0; $i<$tamanho; $i++) 
+				for ($i = 0; $i < $tamanho; $i++)
 				{
 					$valor = isset($item->$chaves[$i]) ? $item->$chaves[$i] : '';
 					$conteudo .= $this->_html_item($input.$valor);
@@ -242,8 +242,8 @@ class Gg2_listagem
 				}
 				$conteudo .= '</tr>' . PHP_EOL;
 			}
-		} 
-		else 
+		}
+		else
 		{
 			$conteudo .= '<tr><td class="warning" colspan="'.$this->_num_colunas.'">Nenhum registro disponível.</td></tr>' . PHP_EOL;
 		}
@@ -260,7 +260,7 @@ class Gg2_listagem
 	 *
 	 * @return string
 	 */
-	private function _html_cabecalho($campo, $chave = '', $posicao = 0, $input = '') 
+	private function _html_cabecalho($campo, $chave = '', $posicao = 0, $input = '')
 	{
 		$link = '';
 		$imagem = '';
@@ -278,7 +278,7 @@ class Gg2_listagem
 		$conteudo = '<th'.(empty($largura) ? '' : ' width="'.$largura.'" ').'>';
 		$conteudo .= ( ! empty($link)) ? ' <a href="'.$link.'" title="'.$campo.'">' . $input  . $imagem . $campo .'</a>' : $input . $campo;
 		$conteudo .= '</th>' . PHP_EOL;
-		return $conteudo; 
+		return $conteudo;
 	}
 	/**
 	 * Retorna o html da coluna da linha
@@ -288,11 +288,11 @@ class Gg2_listagem
 	 *
 	 * @return string
 	 */
-	private function _html_item($campo, $extra = '') 
+	private function _html_item($campo, $extra = '')
 	{
 		return '<td '.$extra.'>' . $campo . '</td>' . PHP_EOL;
 	}
 }
 
-/* End of file Gg2_listagem.php */
-/* Location: ./libraries/Gg2_listagem.php */
+/* End of file gg2_listagem.php */
+/* Location: ./libraries/gg2_listagem.php */

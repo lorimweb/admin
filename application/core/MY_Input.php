@@ -38,10 +38,9 @@ class MY_Input extends CI_Input
 			{
 				if ($xss_clean === TRUE)
 					$tmp = $this->security->xss_clean($value);
-				else 
+				else
 					$tmp = $value;
-				
-				
+
 				if ($em_branco)
 				{
 					$ret[$prefix.$chave] = $tmp;
@@ -50,12 +49,12 @@ class MY_Input extends CI_Input
 				{
 					if ( ! empty($tmp))
 						$ret[$prefix.$chave] = $tmp;
-					else 
+					else
 						$ret[$prefix.$chave] = NULL;
 				}
 			}
 		}
-		
+
 		return $ret;
 	}
 	/**

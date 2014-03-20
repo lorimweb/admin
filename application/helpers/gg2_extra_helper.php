@@ -89,10 +89,10 @@ if ( ! function_exists('unzip'))
 		{
 			$arquivo_zip = new ZipArchive();
 			$aberto = $arquivo_zip->open($caminho . $arquivo);
-			if ($aberto === TRUE) 
+			if ($aberto === TRUE)
 			{
 				$diretorio = $caminho . $nova_pasta;
-				if ( ! is_dir($diretorio)) 
+				if ( ! is_dir($diretorio))
 				{
 					@mkdir($diretorio, 0755, TRUE) OR die('Erro para criar a pasta '.$diretorio);
 				}
@@ -105,7 +105,7 @@ if ( ! function_exists('unzip'))
 				$ret = FALSE;
 			}
 		}
-		
+
 		return $ret;
 	}
 }
@@ -148,8 +148,9 @@ if ( ! function_exists('envia_email'))
 		$ci->email->to($para);
 		$ci->email->subject($assunto);
 		$ci->email->message($mensagem);
-			
-		if (isset($anexo) && ! empty($anexo)) $ci->email->attach($anexo);
+
+		if (isset($anexo) && ! empty($anexo))
+			$ci->email->attach($anexo);
 		return $ci->email->send();
 	}
 }
@@ -166,8 +167,8 @@ if ( ! function_exists('sim_nao'))
 	function sim_nao()
 	{
 		$lista = array(
-			(object)array('id' => 'S', 'nome' => 'Sim'),
-			(object)array('id' => 'N', 'nome' => 'Não')
+			(object) array('id' => 'S', 'nome' => 'Sim'),
+			(object) array('id' => 'N', 'nome' => 'Não')
 		);
 		return $lista;
 	}

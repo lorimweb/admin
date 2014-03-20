@@ -31,19 +31,19 @@ if ( ! function_exists('mensagem_validacao'))
 			if( ! empty($salvo))
 			{
 				$class = 'success';
-				$mensagem =  $salvo;
+				$mensagem = $salvo;
 			}
 			else
 			{
 				$class = '';
-				$mensagem =  '';
+				$mensagem = '';
 				$flag = FALSE;
 			}
 		}
 		else
 		{
 			$class = 'danger';
-			$mensagem =  '<h4>Preencha os campos abaixo corretamente:</h4><ul>'.$mensagem.'</ul>';
+			$mensagem = '<h4>Preencha os campos abaixo corretamente:</h4><ul>'.$mensagem.'</ul>';
 		}
 		if ($flag) $ret = sprintf('<div class="alert alert-%s"><button type="button" class="close" data-dismiss="alert">&times;</button>%s</div>', $class, $mensagem);
 		return $ret;
@@ -69,7 +69,7 @@ if( ! function_exists('tem_permissao'))
 		if ( ! empty($permissoes) && count($permissoes))
 		{
 			$metodo = ($metodo === 'index') ? '' : $metodo;
-			;
+
 			if (isset($metodo) && ! empty($metodo))
 			{
 				$ret = isset($permissoes[$classe][$metodo]);
@@ -124,17 +124,17 @@ if ( ! function_exists('regra_validacao'))
 		}
 		else
 		{
-			$campo = $config;	
+			$campo = $config;
 		}
 		if (empty($regras)) $regras = 'trim|required';
-		if ( ! strstr($attr_campo, 'class=')) 
+		if ( ! strstr($attr_campo, 'class='))
 			$attr_campo .= ' class="form-control"';
-		else 
+		else
 			$attr_campo = str_replace('class="', 'class="form-control ', $attr_campo);
-		
-		if ( ! strstr($attr_div, 'class=')) 
+
+		if ( ! strstr($attr_div, 'class='))
 			$attr_div .= ' class="form-group col-md-12"';
-		else 
+		else
 			$attr_div = str_replace('class="', 'class="form-group ', $attr_div);
 
 		return array(
@@ -164,13 +164,13 @@ if ( ! function_exists('filtro_config'))
 	 * 
 	 * @return array	
 	 */
-	function filtro_config($config, $descricao, $operacao_sql = '', $tipo = 'text', $itens = array(), $attr_div = 'class="form-control"', $valor = '[valor]') 
+	function filtro_config($config, $descricao, $operacao_sql = '', $tipo = 'text', $itens = array(), $attr_div = 'class="form-control"', $valor = '[valor]')
 	{
 		if (is_array($config))
 			extract($config);
 		else
 			$campo = $config;
-		
+
 		$id = str_replace('.', '-', $campo);
 		if (is_array($operacao_sql))
 		{
@@ -189,7 +189,7 @@ if ( ! function_exists('filtro_config'))
 				$valor = '%'.$valor.'%';
 			else
 				$operacao_sql = '=';
-			
+
 			$where = sprintf('%s %s "%s"', $campo, $operacao_sql, $valor);
 		}
 		return array(

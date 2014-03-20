@@ -35,7 +35,7 @@ if( ! function_exists('menu_ativo'))
 	 * 
 	 * @return string
 	 */
-	function menu_ativo($menu = '') 
+	function menu_ativo($menu = '')
 	{
 		$ci =& get_instance();
 		return ($ci->router->class === $menu) ? 'class="active"' : '';
@@ -159,7 +159,7 @@ if( ! function_exists('gera_select_option'))
 		$option = '';
 		if( ! empty($vazio))
 			$option = '<option value="">'.$vazio.'</option>'.PHP_EOL;
-		
+
 		if(count($dados))
 		{
 			foreach ($dados as $value)
@@ -195,7 +195,13 @@ if ( ! function_exists('mensagem_popup'))
 		if ( ! empty($mensagem))
 		{
 			$ci =& get_instance();
-			$ci->session->set_userdata('mensagem_popup', array('mensagem' => $mensagem, 'titulo' => $titulo, 'class'=> $class, 'botoes' => $botoes));
+			$dados = array(
+				'mensagem' => $mensagem,
+				'titulo' => $titulo,
+				'class' => $class,
+				'botoes' => $botoes
+			);
+			$ci->session->set_userdata('mensagem_popup', $dados);
 		}
 	}
 }
@@ -213,10 +219,10 @@ if ( ! function_exists('mostra_popup'))
 		$popup = $ci->session->userdata('mensagem_popup');
 		if ( ! empty($popup))
 		{
-			$ret = $ci->load->view('layouts/janela_modal', array('popup'=>$popup), TRUE);
+			$ret = $ci->load->view('layouts/janela_modal', array('popup' => $popup), TRUE);
 			$ci->session->unset_userdata('mensagem_popup');
 		}
-		else 
+		else
 		{
 			$ret = '';
 		}
@@ -283,7 +289,7 @@ if ( ! function_exists('mostra_banner'))
 			</object>';
 			}
 		}
-		
+
 		return $ret;
 	}
 }

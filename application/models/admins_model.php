@@ -10,7 +10,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Admins_model extends MY_Model 
+class Admins_model extends MY_Model
 {
 	/**
 	 * Construtor que inicializa a classe pai MY_Model
@@ -40,7 +40,7 @@ class Admins_model extends MY_Model
 		$filtro = array('login' => $login, 'senha' => $senha);
 		$this->colunas = 'id, nome';
 		$ret = $this->lista($filtro);
-		if (isset($ret['itens'][0])) 
+		if (isset($ret['itens'][0]))
 		{
 			$ret = $ret['itens'][0];
 			$ret->permissoes = array();

@@ -11,7 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Login extends MY_Controller 
+class Login extends MY_Controller
 {
 	/**
 	 * Controi a classe e inicializa a classe pai 
@@ -20,7 +20,7 @@ class Login extends MY_Controller
 	 * @return void
 	 *
 	 */
-	public function __construct() 
+	public function __construct()
 	{
 		parent::__construct(FALSE);
 	}
@@ -37,12 +37,12 @@ class Login extends MY_Controller
 		$validacao = array(
 			array(
 				'field' => 'login',
-				'label' => 'Login',	
+				'label' => 'Login',
 				'rules' => 'trim|required|callback_verifica_login')
 			,
 			array(
 				'field' => 'senha',
-				'label' => 'Senha', 
+				'label' => 'Senha',
 				'rules' => 'trim|required'
 			)
 		);
@@ -53,14 +53,14 @@ class Login extends MY_Controller
 		}
 		else
 		{
-			switch ($tipo) 
+			switch ($tipo)
 			{
 				case 2:
 					mensagem_popup('Você foi desconectado do sistema');
-				break;
+					break;
 				case 3:
 					mensagem_popup('Você não tem autorização para acessar esta página!', ': (', 'danger');
-				break;
+					break;
 			}
 		}
 		$data['validacao'] = mensagem_validacao();
@@ -76,7 +76,7 @@ class Login extends MY_Controller
 	{
 		$this->gg2_sessao->remove();
 	}
-	
+
 	/**
 	 * Função de callback do formulário que verifica o login.
 	 *

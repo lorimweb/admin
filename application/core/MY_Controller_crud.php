@@ -11,7 +11,7 @@ require_once(APPPATH . 'core/MY_Controller_LIST.php');
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-abstract class MY_Controller_crud extends MY_Controller_list 
+abstract class MY_Controller_crud extends MY_Controller_list
 {
 	/**
 	 * Configuracoes das validacoes e dos campos do formulario dinamico.
@@ -39,7 +39,7 @@ abstract class MY_Controller_crud extends MY_Controller_list
 	 *
 	 * @return array
 	 */
-	protected function parametros_extra($id = 0, $dados = NULL) 
+	protected function parametros_extra($id = 0, $dados = NULL)
 	{
 		$data = array(
 			'action' => site_url($this->modulo . '/' . $this->acao . '/' . $id),
@@ -50,7 +50,7 @@ abstract class MY_Controller_crud extends MY_Controller_list
 		);
 		$this->gg2_layouts->navegacao($this->meu_model->titulo, $this->modulo . '/listar', '0');
 
-		return $data; 
+		return $data;
 	}
 	/**
 	 * Salva os dados do formulário na base de dados
@@ -58,7 +58,7 @@ abstract class MY_Controller_crud extends MY_Controller_list
 	 *
 	 * @return integer
 	 */
-	protected function salva_adicionar() 
+	protected function salva_adicionar()
 	{
 		$data = $this->dados_formulario($this->prefix);
 		return $this->meu_model->adicionar($data);
@@ -98,7 +98,7 @@ abstract class MY_Controller_crud extends MY_Controller_list
 	 *
 	 * @return void
 	 */
-	protected function init_filtros($valores = array(), $url = '') 
+	protected function init_filtros($valores = array(), $url = '')
 	{
 		return $this->gg2_filtros->init(array(), $valores, $url);
 	}
@@ -115,27 +115,27 @@ abstract class MY_Controller_crud extends MY_Controller_list
 	protected function redireciona_salvo($config = 0, $popup = NULL, $return = FALSE)
 	{
 		$id = 0;
-		
-		if (is_array($config)) 
+
+		if (is_array($config))
 			extract($config);
-		else 
+		else
 			$id = $config;
 
-		if ( ! is_array($popup)) 
-			$popup = array('mensagem' => MSG_SALVO, 'titulo' => ': )', 'class'=> 'success');
-		if ( ! isset($popup['botoes'])) 
+		if ( ! is_array($popup))
+			$popup = array('mensagem' => MSG_SALVO, 'titulo' => ': )', 'class' => 'success');
+		if ( ! isset($popup['botoes']))
 			$popup['botoes'] = $this->form_botoes($id, FALSE);
-		
+
 		mensagem_popup($popup);
 
-		if($id && tem_permissao($this->modulo, 'ver')) 
+		if($id && tem_permissao($this->modulo, 'ver'))
 			$link = $this->modulo.'/ver/'.$id;
-		elseif($id && tem_permissao($this->modulo, 'editar')) 
+		elseif($id && tem_permissao($this->modulo, 'editar'))
 			$link = $this->modulo.'/editar/'.$id;
-		else 
+		else
 			$link = $this->modulo.'/listar';
 
-		if ($return) 
+		if ($return)
 			return $link;
 		else
 			redirect($link);
@@ -151,24 +151,24 @@ abstract class MY_Controller_crud extends MY_Controller_list
 	protected function form_botoes($id = 0, $voltar = TRUE)
 	{
 		$botoes = array();
-		if(tem_permissao($this->modulo, 'listar')) 
+		if(tem_permissao($this->modulo, 'listar'))
 		{
 			$botoes[] = '<a href="'.site_url($this->modulo.'/listar').'" class="btn btn-default"> ' .
 				'<i class="glyphicon glyphicon-list-alt"></i> Listar</a>'.PHP_EOL;
 		}
-		if($voltar) 
+		if($voltar)
 		{
 			$botoes[] = '<a href="'.$this->agent->referrer().'" class="btn btn-default"> ' .
 				'<i class="glyphicon glyphicon-arrow-left"></i> Tela Anterior</a>'.PHP_EOL;
 		}
-		elseif(tem_permissao($this->modulo, 'adicionar')) 
+		elseif(tem_permissao($this->modulo, 'adicionar'))
 		{
 			$botoes[] = '<a href="'.site_url($this->modulo.'/adicionar/').'" class="btn btn-default"> ' .
 				'<i class="glyphicon glyphicon-plus"></i> Novo</a>'.PHP_EOL;
 		}
-		if($id && tem_permissao($this->modulo, 'editar')) 
+		if($id && tem_permissao($this->modulo, 'editar'))
 		{
-			$botoes[] = '<a href="'.site_url($this->modulo.'/editar/'.$id).'" class="btn btn-default"> ' . 
+			$botoes[] = '<a href="'.site_url($this->modulo.'/editar/'.$id).'" class="btn btn-default"> ' .
 				'<i class="glyphicon glyphicon-pencil"></i> Editar Registro</a>'.PHP_EOL;
 		}
 
@@ -200,7 +200,7 @@ abstract class MY_Controller_crud extends MY_Controller_list
 	{
 		if (isset($this->validacao[$this->acao]))
 			$this->validacao = $this->validacao[$this->acao];
-			
+
 		$this->form_validation->set_rules($this->validacao);
 	}
 	/**
@@ -302,9 +302,9 @@ abstract class MY_Controller_crud extends MY_Controller_list
 	public function remover($id = 0)
 	{
 		$popup = array(
-			'class' => 'success', 
-			'mensagem' => '', 
-			'titulo' => ': )', 
+			'class' => 'success',
+			'mensagem' => '',
+			'titulo' => ': )',
 			'botoes' => array()
 		);
 		$quantidade = $this->salva_remover($id);

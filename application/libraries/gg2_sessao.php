@@ -10,7 +10,8 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Gg2_sessao {
+class Gg2_sessao
+{
 	/**
 	 * Instancia do core do framework CodeIgniter.
 	 * 
@@ -35,7 +36,7 @@ class Gg2_sessao {
 	 *
 	 * @return void
 	 */
-	public function __construct() 
+	public function __construct()
 	{
 		$this->_ci =& get_instance();
 		$this->_db = $this->_ci->db;
@@ -46,7 +47,7 @@ class Gg2_sessao {
 	 *
 	 * @return void
 	 */
-	private function _esta_valida() 
+	private function _esta_valida()
 	{
 		$tmp = $this->_buscar($this->session->userdata('session_id'));
 		if ($tmp)
@@ -75,7 +76,7 @@ class Gg2_sessao {
 			$this->_db->update($this->_tabela, $data, array('id' => $id));
 		else
 			$this->_db->insert($this->_tabela, $data);
-		
+
 	}
 	/**
 	 * apaga da tabela da sessao o id
@@ -99,8 +100,9 @@ class Gg2_sessao {
 	private function _buscar($id, $valida = TRUE)
 	{
 		$filtro = array('id' => $id);
-		if ($valida) $filtro['dh_termino > NOW()'] = NULL;
-			
+		if ($valida)
+			$filtro['dh_termino > NOW()'] = NULL;
+
 		$tmp = $this->_db
 			->select('id, dh_inicio, dh_termino, url, ip, admin_id')
 			->where($filtro)
@@ -122,14 +124,14 @@ class Gg2_sessao {
 	 */
 	public function verifica()
 	{
-		if ($this->_ci->session->userdata('usuario')) 
+		if ($this->_ci->session->userdata('usuario'))
 		{
-			if ($this->_esta_valida()) 
+			if ($this->_esta_valida())
 				$this->registra();
-			else 
+			else
 				$this->remove(3);
 		}
-		else 
+		else
 		{
 			$this->remove(3);
 		}
@@ -141,7 +143,7 @@ class Gg2_sessao {
 	 *
 	 * @return void
 	 */
-	public function registra($admin = FALSE) 
+	public function registra($admin = FALSE)
 	{
 		if ($admin)
 		{
@@ -163,7 +165,7 @@ class Gg2_sessao {
 	 *
 	 * @return void
 	 */
-	public function remove($id = 2) 
+	public function remove($id = 2)
 	{
 		$this->_apagar($this->_ci->session->userdata('session_id'));
 		$this->_ci->session->sess_destroy();
@@ -171,5 +173,5 @@ class Gg2_sessao {
 	}
 }
 
-/* End of file Gg2_sessao.php */
-/* Location: ./libraries/Gg2_sessao.php */
+/* End of file gg2_sessao.php */
+/* Location: ./libraries/gg2_sessao.php */

@@ -37,7 +37,7 @@ class MY_Model extends CI_Model
 	 * @var boolean
 	 */
 	public $mostra_sql = FALSE;
-	
+
 	/**
 	 * Construtor que inicializa a classe pai CI_Model
 	 *
@@ -84,15 +84,15 @@ class MY_Model extends CI_Model
 	public function id($id)
 	{
 		return $this->registro($this->id, $id);
-	} 
+	}
 	/**
 	 * Função que pega mostra o ultimo comando sql
 	 *
 	 * @return void
 	 */
-	private function _mostra_sql() 
+	private function _mostra_sql()
 	{
-		if ($this->mostra_sql) 
+		if ($this->mostra_sql)
 		{
 			$tmp =& get_instance();
 			$tmp->output->append_output('<pre>' . $this->db->last_query() . '</pre>');
@@ -121,7 +121,7 @@ class MY_Model extends CI_Model
 	public function adicionar($data = array())
 	{
 		$this->db->insert($this->tabela, $data);
-		$this->_mostra_sql(); 
+		$this->_mostra_sql();
 		return $this->db->insert_id();
 	}
 	/**
@@ -195,19 +195,19 @@ class MY_Model extends CI_Model
 			$ordenar_sentido = (strtolower($ordenar_sentido) === 'desc') ? 'desc' : 'asc';
 			$this->db->order_by($ordenar_por, $ordenar_sentido, FALSE);
 		}
-		
-		if ( ! empty($limite) && isset($offset)) 
+
+		if ( ! empty($limite) && isset($offset))
 			$this->db->limit($limite, $offset);
-		
+
 		$query = $this->db->get()->result();
 		$this->_mostra_sql();
 
-		if (isset($query[0])) 
+		if (isset($query[0]))
 		{
 			$ret['itens'] = $query;
 			$n_linhas = $this->db->query('SELECT FOUND_ROWS() as count')->result();
 			$ret['num_itens'] = $n_linhas[0]->count;
-		} 
+		}
 		else
 		{
 			$ret['itens'] = array();
@@ -277,9 +277,9 @@ class MY_Model extends CI_Model
 	{
 		if (count($extras))
 		{
-			foreach ($extras as $comando => $valor) 
+			foreach ($extras as $comando => $valor)
 			{
-				$this->db->{$comando}($valor); 
+				$this->db->{$comando}($valor);
 			}
 		}
 	}
