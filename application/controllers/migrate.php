@@ -11,8 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Migrate extends CI_Controller
-{
+class Migrate extends CI_Controller {
 	/**
 	 * Controi a classe e inicializa a classe
 	 * e carrega a biblioteca migration
@@ -34,13 +33,9 @@ class Migrate extends CI_Controller
 	public function index()
 	{
 		if ( ! $this->migration->current())
-		{
 			show_error($this->migration->error_string());
-		}
 		else
-		{
 			$this->output->set_output(utf8_decode('Instalação feita com louvor!'));
-		}
 	}
 }
 

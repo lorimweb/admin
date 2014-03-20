@@ -11,8 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class MY_Controller extends CI_Controller
-{
+class MY_Controller extends CI_Controller {
 	/**
 	 * Nome do modulo.
 	 * 
@@ -112,7 +111,7 @@ class MY_Controller extends CI_Controller
 		}
 		else
 		{
-			if($required)
+			if ($required)
 			{
 				$this->form_validation->set_message('envia_arquivo', 'O campo %s é obrigatório.');
 				$ret = FALSE;
@@ -122,6 +121,7 @@ class MY_Controller extends CI_Controller
 				$ret = TRUE;
 			}
 		}
+
 		return $ret;
 	}
 	/**

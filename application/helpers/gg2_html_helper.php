@@ -10,7 +10,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-if( ! function_exists('menu_lateral'))
+if ( ! function_exists('menu_lateral'))
 {
 	/**
 	 * Função que retorna os menus laterais do painel administrativo
@@ -26,7 +26,7 @@ if( ! function_exists('menu_lateral'))
 		return $itens['itens'];
 	}
 }
-if( ! function_exists('menu_ativo'))
+if ( ! function_exists('menu_ativo'))
 {
 	/**
 	 * Função que retorna se é o modulo que esta sendo acessado
@@ -42,7 +42,7 @@ if( ! function_exists('menu_ativo'))
 	}
 }
 
-if( ! function_exists('monta_campos_form'))
+if ( ! function_exists('monta_campos_form'))
 {
 	/**
 	 * Função que retorna o formulário html a partir de uma configuracao 
@@ -56,7 +56,7 @@ if( ! function_exists('monta_campos_form'))
 	function monta_campos_form($campos = array(), $dados = NULL, $edit = TRUE)
 	{
 		$html = '';
-		if(count($campos))
+		if (count($campos))
 		{
 			$dados = isset($dados) ? $dados : new stdClass();
 			foreach ($campos as $campo)
@@ -103,32 +103,32 @@ if( ! function_exists('monta_campos_form'))
 						$html .= PHP_EOL.'<input type="file" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' data-value="'.$dados->{$campo['field']}.'" />';
 						break;
 					case 'date':
-						if(strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-date ', $campo['extra_campo']);
+						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-date ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-date"';
 						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="00/00/0000" />';
 						break;
 					case 'datetime':
-						if(strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-datetime ', $campo['extra_campo']);
+						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-datetime ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-datetime"';
 						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="00/00/0000 (00:00)" />';
 						break;
 					case 'money':
-						if(strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-money ', $campo['extra_campo']);
+						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-money ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-money"';
 						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="#.##0,00" data-mask-reverse="true" data-mask-maxlength="false" />';
 						break;
 					case 'number':
-						if(strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-number ', $campo['extra_campo']);
+						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-number ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-number"';
 						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="0#" data-mask-maxlength="false" />';
 						break;
 					case 'phone':
-						if(strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-phone ', $campo['extra_campo']);
+						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-phone ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-phone"';
 						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="(##) ####-####9" />';
 						break;
 					case 'cep':
-						if(strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-cep ', $campo['extra_campo']);
+						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-cep ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-cep"';
 						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="#####-###" />';
 						break;
@@ -143,7 +143,7 @@ if( ! function_exists('monta_campos_form'))
 		return $html;
 	}
 }
-if( ! function_exists('gera_select_option'))
+if ( ! function_exists('gera_select_option'))
 {
 	/**
 	 * Função que os options a partir de uma configuracao
@@ -157,10 +157,10 @@ if( ! function_exists('gera_select_option'))
 	function gera_select_option($dados, $selecionado = '', $vazio = '')
 	{
 		$option = '';
-		if( ! empty($vazio))
+		if ( ! empty($vazio))
 			$option = '<option value="">'.$vazio.'</option>'.PHP_EOL;
 
-		if(count($dados))
+		if (count($dados))
 		{
 			foreach ($dados as $value)
 			{

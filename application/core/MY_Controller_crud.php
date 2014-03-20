@@ -151,22 +151,22 @@ abstract class MY_Controller_crud extends MY_Controller_list
 	protected function form_botoes($id = 0, $voltar = TRUE)
 	{
 		$botoes = array();
-		if(tem_permissao($this->modulo, 'listar'))
+		if (tem_permissao($this->modulo, 'listar'))
 		{
 			$botoes[] = '<a href="'.site_url($this->modulo.'/listar').'" class="btn btn-default"> ' .
 				'<i class="glyphicon glyphicon-list-alt"></i> Listar</a>'.PHP_EOL;
 		}
-		if($voltar)
+		if ($voltar)
 		{
 			$botoes[] = '<a href="'.$this->agent->referrer().'" class="btn btn-default"> ' .
 				'<i class="glyphicon glyphicon-arrow-left"></i> Tela Anterior</a>'.PHP_EOL;
 		}
-		elseif(tem_permissao($this->modulo, 'adicionar'))
+		elseif (tem_permissao($this->modulo, 'adicionar'))
 		{
 			$botoes[] = '<a href="'.site_url($this->modulo.'/adicionar/').'" class="btn btn-default"> ' .
 				'<i class="glyphicon glyphicon-plus"></i> Novo</a>'.PHP_EOL;
 		}
-		if($id && tem_permissao($this->modulo, 'editar'))
+		if ($id && tem_permissao($this->modulo, 'editar'))
 		{
 			$botoes[] = '<a href="'.site_url($this->modulo.'/editar/'.$id).'" class="btn btn-default"> ' .
 				'<i class="glyphicon glyphicon-pencil"></i> Editar Registro</a>'.PHP_EOL;

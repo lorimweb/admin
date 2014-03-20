@@ -11,8 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Login extends MY_Controller
-{
+class Login extends MY_Controller {
 	/**
 	 * Controi a classe e inicializa a classe pai 
 	 * sem a verificacao de login

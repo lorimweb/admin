@@ -28,7 +28,7 @@ if ( ! function_exists('mensagem_validacao'))
 		$mensagem = $ci->form_validation->error_string('<li>', '</li>');
 		if (empty($mensagem))
 		{
-			if( ! empty($salvo))
+			if ( ! empty($salvo))
 			{
 				$class = 'success';
 				$mensagem = $salvo;
@@ -50,7 +50,7 @@ if ( ! function_exists('mensagem_validacao'))
 	}
 }
 
-if( ! function_exists('tem_permissao'))
+if ( ! function_exists('tem_permissao'))
 {
 	/**
 	 * Função que retorna se o usuario da sessao tem permissao ou não naquele metodo
@@ -87,7 +87,7 @@ if( ! function_exists('tem_permissao'))
 	}
 }
 
-if( ! function_exists('user_logado'))
+if ( ! function_exists('user_logado'))
 {
 	/**
 	 * Função que retorna o nome do usuario da sessao

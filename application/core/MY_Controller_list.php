@@ -121,18 +121,18 @@ abstract class MY_Controller_list extends MY_Controller
 	protected function botoes_listar()
 	{
 		$botoes = array();
-		if(tem_permissao($this->modulo, 'ver'))
+		if (tem_permissao($this->modulo, 'ver'))
 		{
 			$botoes[] = '<a href="'.site_url($this->modulo . '/ver/[id]').'" title="Vizualizar Item ID: [id]"> '.
 				'<i class="glyphicon glyphicon-folder-open"></i></a>';
 		}
-		if(tem_permissao($this->modulo, 'editar'))
+		if (tem_permissao($this->modulo, 'editar'))
 		{
 			$botoes[] = '<a href="'.site_url($this->modulo . '/editar/[id]').'" title="Alterar Item ID: [id]"> ' .
 				'<i class="glyphicon glyphicon-pencil"></i></a>';
 
 		}
-		if(tem_permissao($this->modulo, 'remover'))
+		if (tem_permissao($this->modulo, 'remover'))
 		{
 			$botoes[] = '<a href="'.site_url($this->modulo . '/remover/[id]').'" title="Remover Item ID: [id]"> ' .
 				'<i class="glyphicon glyphicon-trash"></i></a>';

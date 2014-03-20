@@ -12,8 +12,7 @@ require_once (APPPATH . 'core/MY_Controller_CRUD.php');
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Admins extends MY_Controller_CRUD
-{
+class Admins extends MY_Controller_CRUD {
 	/**
 	 * Controi a classe e inicializa os parametros do crud
 	 * como o cabecalho da listagem as regras de validacao

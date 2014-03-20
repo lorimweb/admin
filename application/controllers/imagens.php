@@ -11,8 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Imagens extends MY_Controller
-{
+class Imagens extends MY_Controller {
 	/**
 	 * Controi a classe e inicializa a classe pai passado false para 
 	 * não verificar se o admin está logado.

@@ -231,9 +231,13 @@ class MY_Model extends CI_Model
 				foreach ($filtros as $filtro)
 				{
 					if (isset($filtro['funcao_ci']))
+					{
 						$this->db->{$filtro['funcao_ci']}($filtro['campo'], $filtro['valor']);
+					}
 					else
+					{
 						$this->db->where($filtro);
+					}
 				}
 			}
 			else

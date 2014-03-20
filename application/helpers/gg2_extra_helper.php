@@ -12,7 +12,7 @@
  * @link      http://gg2.com.br
  */
 
-if( ! function_exists('pega_chave_array'))
+if ( ! function_exists('pega_chave_array'))
 {
 	/**
 	 * Função que retorna a partir de um array o nome do 
@@ -35,7 +35,7 @@ if( ! function_exists('pega_chave_array'))
 		return $ret;
 	}
 }
-if( ! function_exists('pega_extensao_arquivo'))
+if ( ! function_exists('pega_extensao_arquivo'))
 {
 	/**
 	 * Função que retorna a extensao de um arquivo
@@ -49,7 +49,7 @@ if( ! function_exists('pega_extensao_arquivo'))
 		return str_replace('.', '', strtolower(substr($arquivo, -4)));
 	}
 }
-if( ! function_exists('pega_id_youtube'))
+if ( ! function_exists('pega_id_youtube'))
 {
 	/**
 	 * Função que retorna o id de um link do youtube

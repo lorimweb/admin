@@ -11,7 +11,7 @@
  * @link      http://gg2.com.br
  */
 
-if( ! function_exists('slug'))
+if ( ! function_exists('slug'))
 {
 	/**
 	 * Função que retorna uma string sem acentos e tudo em minusculo
@@ -42,7 +42,7 @@ if( ! function_exists('slug'))
 	}
 }
 
-if( ! function_exists('formata_data_hora_mysql'))
+if ( ! function_exists('formata_data_hora_mysql'))
 {
 	/**
 	 * Função que retorna uma data hora (datetime) no formato do mysql
@@ -57,9 +57,9 @@ if( ! function_exists('formata_data_hora_mysql'))
 		$data = explode(' ', $data);
 		$data[0] = formata_data_mysql($data[0], FALSE);
 
-		if($data[0])
+		if ($data[0])
 		{
-			if(strlen($data[1]) === 5)
+			if (strlen($data[1]) === 5)
 				$data[1] .= ':00';
 			$ret = implode(' ', $data);
 		}
@@ -71,7 +71,7 @@ if( ! function_exists('formata_data_hora_mysql'))
 	}
 }
 
-if( ! function_exists('formata_data_mysql'))
+if ( ! function_exists('formata_data_mysql'))
 {
 	/**
 	 * Função que retorna uma data (date) no formato do mysql
