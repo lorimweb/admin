@@ -11,8 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Gg2_layouts
-{
+class Gg2_layouts {
 	/**
 	 * Instancia do core do framework CodeIgniter.
 	 * 

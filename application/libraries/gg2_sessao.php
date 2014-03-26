@@ -10,8 +10,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Gg2_sessao
-{
+class Gg2_sessao {
 	/**
 	 * Instancia do core do framework CodeIgniter.
 	 * 

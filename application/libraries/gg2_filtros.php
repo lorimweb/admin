@@ -15,8 +15,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Gg2_filtros
-{
+class Gg2_filtros {
 	/**
 	 * Os itens do formulario.
 	 * 

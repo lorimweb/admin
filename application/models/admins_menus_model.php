@@ -1,4 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
  * Esta classe que persiste os dados dos menus do Painel administrativo no banco de dados
  *
@@ -10,8 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Admins_menus_model extends MY_Model
-{
+class Admins_menus_model extends MY_Model {
 	/**
 	 * Construtor que inicializa a classe pai MY_Model
 	 * e configura o nome da tabela principal e das colunas da tabela.

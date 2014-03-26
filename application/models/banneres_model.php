@@ -1,4 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
  * Esta classe que persiste os dados dos Banneres no banco de dados
  *
@@ -10,8 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Banneres_model extends MY_Model
-{
+class Banneres_model extends MY_Model {
 	/**
 	 * Caminho onde estão salvas as imagens.
 	 * 

@@ -1,5 +1,17 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Esta classe é responsavel por criar na base de dados
+ * a estrutura inicial da aplicação
+ *
+ * @category  GG2_Admin
+ * @package   Libraries
+ * @author    Gihovani Filipp Pereira Demétrio <gihovani@gmail.com>
+ * @copyright 2012-2014 GG2 Soluções
+ * @license   http://gg2.com.br/license.html GG2 Soluções
+ * @version   Release: 1.0
+ * @link      http://gg2.com.br
+ */
 class Migration_cria_estrutura_inicial extends CI_Migration {
 
 	/**
@@ -24,7 +36,8 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
-		foreach ($this->_modulos as $modulo) {
+		foreach ($this->_modulos as $modulo)
+		{
 			$this->load->model($modulo.'_model');
 		}
 	}
@@ -55,7 +68,8 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	 */
 	private function _cria_tabelas()
 	{
-		foreach ($this->_modulos as $modulo) {
+		foreach ($this->_modulos as $modulo)
+		{
 			$this->{$modulo.'_model'}->cria_tabela();
 		}
 		$this->_cria_tabela_sessoes();
@@ -68,7 +82,8 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	private function _remove_tabelas()
 	{
 		$this->_modulos = array_reverse($this->_modulos);
-		foreach ($this->_modulos as $modulo) {
+		foreach ($this->_modulos as $modulo)
+		{
 			$this->dbforge->drop_table($this->{$modulo.'_model'}->tabela);
 		}
 	}
@@ -125,7 +140,8 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	private function _add_registros_menus()
 	{
 		$data = array();
-		foreach ($this->_modulos as $modulo) {
+		foreach ($this->_modulos as $modulo)
+		{
 			$data[] = array(
 				'titulo'  => $this->{$modulo.'_model'}->titulo,
 				'link' => $modulo,
@@ -137,7 +153,8 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 			'link' => 'login/logout',
 			'ativo' => 'S'
 		);
-		foreach ($data as $dados) {
+		foreach ($data as $dados)
+		{
 			$this->db->insert('admins_menus', $dados);
 		}
 		return $this->db->insert_id();
