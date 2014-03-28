@@ -11,8 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-abstract class MY_Controller_list extends MY_Controller
-{
+abstract class MY_Controller_list extends MY_Controller {
 	/**
 	 * Nome do model padrão da classe.
 	 * 

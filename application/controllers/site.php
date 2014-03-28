@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once (APPPATH . 'core/MY_Controller_CRUD.php');
+
 /**
  * Esta classe que controla as páginas do site
  *

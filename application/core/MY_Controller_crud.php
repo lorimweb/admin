@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . 'core/MY_Controller_LIST.php');
+require_once(APPPATH . 'core/MY_Controller_list.php');
 /**
  * Esta classe é serve para a assinatura dos CRUDS
  * 
@@ -11,8 +11,7 @@ require_once(APPPATH . 'core/MY_Controller_LIST.php');
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-abstract class MY_Controller_crud extends MY_Controller_list
-{
+abstract class MY_Controller_crud extends MY_Controller_list {
 	/**
 	 * Configuracoes das validacoes e dos campos do formulario dinamico.
 	 * 
