@@ -2,7 +2,7 @@
 require_once (APPPATH . 'core/MY_Controller_crud.php');
 
 /**
- * Esta classe que controla os Notícias do site
+ * Esta classe que controla os Páginas do site
  *
  * @category  Site
  * @package   Controllers
@@ -12,7 +12,7 @@ require_once (APPPATH . 'core/MY_Controller_crud.php');
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Noticias extends MY_Controller_crud {
+class Paginas extends MY_Controller_crud {
 	/**
 	 * Controi a classe e inicializa os parametros do crud
 	 * como o cabecalho da listagem as regras de validacao
@@ -23,11 +23,12 @@ class Noticias extends MY_Controller_crud {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('noticias_model');
-		$this->meu_model = $this->noticias_model;
+		$this->load->model('paginas_model');
+		$this->meu_model = $this->paginas_model;
 		$this->_init_cabecalho();
 		$this->_init_validacao();
 	}
+
 	/**
 	 * inicializa/configura as regras de validação e os campos do formulário dinamico.
 	 *
@@ -37,21 +38,10 @@ class Noticias extends MY_Controller_crud {
 	private function _init_validacao()
 	{
 		$this->validacao = array(
-			regra_validacao(
-				'imagem',
-				'Imagem <small>('.$this->meu_model->dimensoes.'px / jpg,png,gif,swf)</small>',
-				'trim|callback_envia_arquivo[imagem,'.$this->meu_model->pasta.'/,0,gif|jpg|jepg|png|swf]',
-				'class="col-md-3"',
-				'',
-				'file'
-			),
-			regra_validacao('titulo', 'Título', '', 'class="col-md-5"'),
-			regra_validacao('slug', 'Slug', 'trim', 'class="col-md-4"'),
+			regra_validacao('titulo', 'Título'),
 			regra_validacao('dt_registro', 'Data Registro', 'trim', 'class="col-md-3"', '', 'date'),
-			regra_validacao('ordem', 'Ordem', 'trim', 'class="col-md-3"', '', 'number'),
-			regra_validacao('destaque', 'Destaque', '', 'class="col-md-3"', '', 'select', sim_nao()),
 			regra_validacao('ativo', 'Ativo', '', 'class="col-md-3"', '', 'select', sim_nao()),
-			regra_validacao('chamada', 'Chamada', 'trim', '', '', 'textarea'),
+			regra_validacao('slug', 'Slug', 'trim', 'class="col-md-6"'),
 			regra_validacao('conteudo', 'Conteúdo', 'trim', '', 'class="ckeditor"', 'textarea'),
 		);
 	}
@@ -64,12 +54,9 @@ class Noticias extends MY_Controller_crud {
 	private function _init_cabecalho()
 	{
 		$this->cabecalho = array(
-			'img' => 'Imagem',
 			'dt_registro' => 'DT Registro',
 			'titulo' => 'Título',
 			'slug' => 'Slug',
-			'ordem' => 'Ordem',
-			'destaque' => 'Destaque',
 			'ativo' => 'Ativo',
 		);
 	}
@@ -85,7 +72,7 @@ class Noticias extends MY_Controller_crud {
 		$data = parent::dados_formulario($prefix);
 		$data['slug'] = slug($data['titulo']);
 		if ( ! empty($data['dt_registro']))
-			$data['dt_registro'] = formata_data_mysql($data['dt_registro']).' 23:59:59';
+			$data['dt_registro'] = formata_data_mysql($data['dt_registro']) . ' 23:59:59';
 
 		return $data;
 	}
@@ -100,46 +87,10 @@ class Noticias extends MY_Controller_crud {
 	protected function parametros_extra($id = 0, $dados = NULL)
 	{
 		$data = parent::parametros_extra($id, $dados);
-		$data['enctype'] = 'multipart/form-data';
 		$this->gg2_layouts
 			->arquivos_extras(JS . 'ckeditor/ckeditor.js')
 			->arquivos_extras(JS . 'ckeditor/adapters/jquery.js');
 		return $data;
-	}
-	/**
-	 * Função executada apos salvar os dados, serve para decidir o que fazer apos a operação
-	 * ser feita com sucesso.
-	 *
-	 * @param array   $config as configurações ou o id do item identifcador
-	 * @param array   $popup  as configurações do popup
-	 * @param boolean $return se é para redirecionar ou se é para retornar o link
-	 *
-	 * @return void
-	 */
-	protected function redireciona_salvo($config = 0, $popup = NULL, $return = TRUE)
-	{
-		$data = parent::redireciona_salvo($config, $popup, $return);
-		$link = $this->meu_model->imagem_link_recortar($config);
-		redirect($link);
-	}
-	/**
-	 * Função sobrescrita para adicionar nos botões padrão do formulário.
-	 * o botão de recortar a imagem.
-	 *
-	 * @param string  $id     o id do item identifcador
-	 * @param boolean $voltar se é para mostrar o botão voltar
-	 *
-	 * @return array
-	 */
-	protected function form_botoes($id = 0, $voltar = TRUE)
-	{
-		$botoes = parent::form_botoes($id, $voltar);
-		$link = $this->meu_model->imagem_link_recortar($id);
-		if ($link)
-			$botoes[] = '<a href="'.$link.'" class="btn btn-default"> ' .
-				'<i class="glyphicon glyphicon-picture"></i> Recortar</a>'.PHP_EOL;
-
-		return $botoes;
 	}
 	/**
 	 * inicializa e configura os filtros que vieram do formulário da busca
@@ -155,7 +106,6 @@ class Noticias extends MY_Controller_crud {
 	{
 		$itens[] = filtro_config('id', 'ID', 'where');
 		$itens[] = filtro_config('titulo', 'Título', 'like');
-		$itens[] = filtro_config('destaque', 'Destaque', 'where', 'select', sim_nao());
 		$itens[] = filtro_config('ativo', 'Ativo', 'where', 'select', sim_nao());
 
 		$filtros = $this->gg2_filtros->init($itens, $valores, $url, count($itens), $this->botoes_filtro());
@@ -163,5 +113,5 @@ class Noticias extends MY_Controller_crud {
 	}
 }
 
-/* End of file noticias.php */
-/* Location: ./controllers/noticias.php */
+/* End of file paginas.php */
+/* Location: ./controllers/paginas.php */

@@ -50,7 +50,7 @@ class Imagens extends MY_Controller {
 		if (is_file($caminho))
 		{
 			$data['imagem'] = $caminho;
-			$data['imagem_url'] = site_url($arquivo);
+			$data['imagem_url'] = base_url($arquivo);
 		}
 		$this->form_validation->set_rules($validacao);
 		if ($this->form_validation->run())

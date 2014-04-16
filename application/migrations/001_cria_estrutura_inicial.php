@@ -23,7 +23,10 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 		'admins',
 		'admins_menus',
 		'banneres',
-		'noticias'
+		'configuracoes',
+		'contatos',
+		'noticias',
+		'paginas',
 	);
 	/**
 	 * Construtor que inicializa a classe pai CI_Migration
@@ -86,6 +89,7 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 		{
 			$this->dbforge->drop_table($this->{$modulo.'_model'}->tabela);
 		}
+		$this->dbforge->drop_table('admins_sessoes');
 	}
 	/**
 	 * cria as tabelas
@@ -94,7 +98,6 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	 */
 	private function _add_registros()
 	{
-		$this->_add_registros_admins();
 		$this->_add_registros_menus();
 	}
 	/**
@@ -115,22 +118,6 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 		)';
 		$this->db->query($sql);
 		return $this->db->affected_rows();
-	}
-	/**
-	 * adiciona o admin padrão
-	 *
-	 * @return integer
-	 */
-	private function _add_registros_admins()
-	{
-		$data = array(
-			'nome'  => 'Admin',
-			'login' => 'admin',
-			'senha' => 'dd94709528bb1c83d08f3088d4043f4742891f4f', //admin
-			'ativo' => 'S'
-		);
-		$this->db->insert('admins', $data);
-		return $this->db->insert_id();
 	}
 	/**
 	 * adiciona os menus padrão

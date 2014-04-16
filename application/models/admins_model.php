@@ -78,7 +78,23 @@ class Admins_model extends MY_Model {
 		  UNIQUE KEY `login` (`login`)
 		)';
 		$this->db->query($sql);
-		return $this->db->affected_rows();
+		$ret = $this->_add_registros();
+		return $ret;
+	}
+	/**
+	 * adiciona o admin padrão
+	 *
+	 * @return integer
+	 */
+	private function _add_registros()
+	{
+		$data = array(
+			'nome'  => 'Admin',
+			'login' => 'admin',
+			'senha' => 'dd94709528bb1c83d08f3088d4043f4742891f4f', //admin
+			'ativo' => 'S'
+		);
+		return $this->adicionar($data);
 	}
 }
 

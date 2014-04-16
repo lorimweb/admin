@@ -46,7 +46,7 @@ class Banneres_model extends MY_Model {
 	{
 		parent::__construct();
 		$this->pasta = realpath(APPPATH.'../').'/'.$this->caminho;
-		$this->url = site_url($this->caminho);
+		$this->url = base_url($this->caminho);
 
 		$this->titulo = 'Banneres';
 		$this->tabela = 'banneres';
@@ -92,7 +92,37 @@ class Banneres_model extends MY_Model {
 		  PRIMARY KEY (`id`)
 		)';
 		$this->db->query($sql);
-		return $this->db->affected_rows();
+		$ret = $this->_add_registros();
+		return $ret;
+	}
+	/**
+	 * adiciona o banner padrão
+	 *
+	 * @return integer
+	 */
+	private function _add_registros()
+	{
+		$data = array(
+			array(
+				'imagem' => '02.jpg',
+				'nome' => 'Banner Amarelo',
+				'link' => base_url(),
+				'ordem' => 1,
+				'ativo' => 'S'
+			),
+			array(
+				'imagem' => '03.jpg',
+				'nome' => 'Banner Vermelho',
+				'link' => base_url(),
+				'ordem' => 2,
+				'ativo' => 'S'
+			),
+		);
+		foreach ($data as $tmp)
+		{
+			$this->adicionar($tmp);
+		}
+		return 2;
 	}
 }
 

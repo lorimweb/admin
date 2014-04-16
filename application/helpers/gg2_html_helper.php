@@ -246,7 +246,7 @@ if ( ! function_exists('mostra_banner'))
 		{
 			if (pega_extensao_arquivo($dados->imagem) !== 'swf')
 			{
-				$ret = '<img src="'. base_url('assets/img/banneres/'.$dados->imagem).'" alt="Banner Encom" class="img-responsive">';
+				$ret = '<img src="'. base_url('assets/img/'.$dados->imagem).'" alt="Banner" class="img-responsive">';
 				if (isset($dados->link) && ! empty($dados->link))
 				{
 					$ret = '<a href="'.$dados->link.'">'.$ret.'</a>';
@@ -255,7 +255,7 @@ if ( ! function_exists('mostra_banner'))
 			else
 			{
 				$ret = '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="100%" height="185" id="Untitled-1" align="middle">
-				<param name="movie" value="'. base_url('assets/img/banneres/'.$dados->imagem).'" />
+				<param name="movie" value="'. base_url('assets/img/'.$dados->imagem).'" />
 				<param name="quality" value="high" />
 				<param name="bgcolor" value="#ffffff" />
 				<param name="play" value="true" />
@@ -267,8 +267,8 @@ if ( ! function_exists('mostra_banner'))
 				<param name="salign" value="" />
 				<param name="allowScriptAccess" value="sameDomain" />
 				<!--[if !IE]>-->
-				<object type="application/x-shockwave-flash" data="'. base_url('assets/img/banneres/'.$dados->imagem).'" width="100%" height="185">
-					<param name="movie" value="'. base_url('assets/img/banneres/'.$dados->imagem).'" />
+				<object type="application/x-shockwave-flash" data="'. base_url('assets/img/'.$dados->imagem).'" width="100%" height="185">
+					<param name="movie" value="'. base_url('assets/img/'.$dados->imagem).'" />
 					<param name="quality" value="high" />
 					<param name="bgcolor" value="#ffffff" />
 					<param name="play" value="true" />

@@ -70,6 +70,7 @@ class Gg2_layouts {
 	private function _init()
 	{
 		$this
+			->arquivos_extras('https://fonts.googleapis.com/css?family=Open+Sans:400,600', FALSE, '')
 			->arquivos_extras(CSS . 'bootstrap.min.css')
 			->arquivos_extras(CSS . 'aplicacao.css')
 			->arquivos_extras(JS . 'jquery-1.11.0.min.js')
@@ -132,20 +133,24 @@ class Gg2_layouts {
 	 */
 	public function arquivos_extras($caminho, $remove = FALSE, $url_base = URL_HTTP)
 	{
+		$versao = '';
 		if ($url_base)
+		{
 			$caminho = $url_base . $caminho;
+			$versao = '?v=' . VERSAO;
+		}
 
 		if (preg_match('/js$/', $caminho))
 		{
 			if ( ! $remove)
-				$this->_arquivos_extras['js'][$caminho] = $caminho . '?v=' . VERSAO;
+				$this->_arquivos_extras['js'][$caminho] = $caminho . $versao;
 			else
 				unset($this->_arquivos_extras['js'][$caminho]);
 		}
-		elseif (preg_match('/css$/', $caminho))
+		else
 		{
 			if ( ! $remove)
-				$this->_arquivos_extras['css'][$caminho] = $caminho . '?v=' . VERSAO;
+				$this->_arquivos_extras['css'][$caminho] = $caminho . $versao;
 			else
 				unset($this->_arquivos_extras['css'][$caminho]);
 

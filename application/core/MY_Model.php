@@ -11,8 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class MY_Model extends CI_Model
-{
+class MY_Model extends CI_Model {
 	/**
 	 * Nome da tabela principal do model.
 	 * 

@@ -11,8 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class MY_Input extends CI_Input
-{
+class MY_Input extends CI_Input {
 	/**
 	 * Função que retorna a lista com base na busca do BD
 	 * 

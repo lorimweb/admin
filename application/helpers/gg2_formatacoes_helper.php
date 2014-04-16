@@ -59,8 +59,7 @@ if ( ! function_exists('formata_data_hora_mysql'))
 
 		if ($data[0])
 		{
-			if (strlen($data[1]) === 5)
-				$data[1] .= ':00';
+			$data[1] = (isset($data[1]) && strlen($data[1]) === 5) ? $data[1] . ':00' : '00:00:00';
 			$ret = implode(' ', $data);
 		}
 		else

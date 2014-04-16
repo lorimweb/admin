@@ -204,6 +204,101 @@ if ( ! function_exists('filtro_config'))
 	}
 }
 
+if ( ! function_exists('eh_cpf_valido'))
+{
+	/**
+	 * Verifica se um cpf é válido
+	 *
+	 * @param string $numero numero do cpf
+	 * 
+	 * @return bool
+	 */
+	function eh_cpf_valido($numero)
+	{
+		$numero = str_pad(preg_replace('/[^0-9]/', '', $numero), 11, '0', STR_PAD_LEFT);
+		// Verifica se nenhuma das sequências abaixo foi digitada, caso seja, retorna falso
+		$invalidos = array(
+			'00000000000',
+			'11111111111',
+			'22222222222',
+			'33333333333',
+			'44444444444',
+			'55555555555',
+			'66666666666',
+			'77777777777',
+			'88888888888',
+			'99999999999'
+		);
+		if (strlen($numero) !== 11 OR in_array($numero, $invalidos))
+		{
+			return FALSE;
+		}
+		else
+		{
+			// Calcula os números para verificar se o numero é verdadeiro
+			for ($t = 9; $t < 11; $t++)
+			{
+				for ($digito = 0, $posicao = 0; $posicao < $t; $posicao++)
+				{
+					$digito += $numero{$posicao} * (($t + 1) - $posicao);
+				}
+
+				$digito = ((10 * $digito) % 11) % 10;
+				if (intval($numero{$posicao}) !== intval($digito))
+					return FALSE;
+			}
+
+			return TRUE;
+		}
+	}
+}
+
+if ( ! function_exists('eh_cnpj_valido'))
+{
+	/**
+	 * Verifica se um cnpj é válido
+	 *
+	 * @param string $numero numero do cnpj
+	 * 
+	 * @return bool
+	 */
+	function eh_cnpj_valido($numero)
+	{
+		$numero = str_pad(preg_replace('/[^0-9]/', '', $numero), 14, '0', STR_PAD_LEFT);
+		$invalidos = array(
+			'00000000000000',
+			'11111111111111',
+			'22222222222222',
+			'33333333333333',
+			'44444444444444',
+			'55555555555555',
+			'66666666666666',
+			'77777777777777',
+			'88888888888888',
+			'99999999999999'
+		);
+		if (strlen($numero) !== 14 OR in_array($numero, $invalidos))
+		{
+			return FALSE;
+		}
+		else
+		{
+			for ($t = 12; $t < 14; $t++)
+			{
+				for ($digito = 0, $p = $t - 7, $posicao = 0; $posicao < $t; $posicao++)
+				{
+					$digito += $numero{$posicao} * $p;
+					$p = ($p < 3) ? 9 : --$p;
+				}
+				$digito = ((10 * $digito) % 11) % 10;
+				if (intval($numero{$posicao}) !== intval($digito))
+					return FALSE;
+			}
+
+			return TRUE;
+		}
+	}
+}
 
 /* End of file gg2_validacoes_helper.php */
 /* Location: ./helpers/gg2_validacoes_helper.php */

@@ -25,17 +25,38 @@ class Migrate extends CI_Controller {
 		$this->load->library('migration');
 	}
 	/**
+	 * Função padrão que chama a instalação.
+	 * 
+	 * @return void
+	 */
+	public function index()
+	{
+		$this->install();
+	}
+	/**
 	 * Instala ou atualiza o sistema de acordo com a versão
 	 *
 	 * @return void
 	 *
 	 */
-	public function index()
+	public function install()
 	{
-		if ( ! $this->migration->current())
-			show_error($this->migration->error_string());
-		else
-			$this->output->set_output(utf8_decode('Instalação feita com louvor!'));
+		$this->migration->version(1);
+		$this->output->set_output(utf8_decode('Instalação feita com louvor!'));
+	}
+	/**
+	 * Desinstala o sistema de acordo com a versão
+	 *
+	 * @return void
+	 *
+	 */
+	public function uninstall()
+	{
+		$this->migration->version(0);
+		require_once(APPPATH . 'migrations/001_cria_estrutura_inicial.php');
+		$classe = new Migration_cria_estrutura_inicial();
+		$classe->down();
+		$this->output->set_output(utf8_decode('Desinstalação feita com louvor!'));
 	}
 }
 
