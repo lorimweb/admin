@@ -48,7 +48,7 @@ class Gg2_sessao {
 	 */
 	private function _esta_valida()
 	{
-		$tmp = $this->_buscar($this->session->userdata('session_id'));
+		$tmp = $this->_buscar($this->_ci->session->userdata('session_id'));
 		if ($tmp)
 			$tmp = tem_permissao($this->_ci->router->class, $this->_ci->router->method);
 		return $tmp;
@@ -152,6 +152,7 @@ class Gg2_sessao {
 				'permissoes' => $admin->permissoes,
 				'menu' => $admin->menu,
 			);
+			$this->_ci->session->set_userdata($dados);
 		}
 		$this->_gravar($this->_ci->session->userdata('session_id'), $this->_ci->session->userdata('usuario'));
 

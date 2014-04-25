@@ -26,7 +26,7 @@ abstract class MY_Controller_crud extends MY_Controller_list {
 	 *
 	 * @return void
 	 */
-	public function __construct($parametros = NULL)
+	public function __construct($parametros = TRUE)
 	{
 		parent::__construct($parametros);
 	}
