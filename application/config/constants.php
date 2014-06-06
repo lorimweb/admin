@@ -51,6 +51,7 @@ define('URL_HTTP', $projeto_url);
 define('DATABASE_CONF', $projeto_db);
 define('NM_EMPRESA', 'GG2');
 define('LAYOUT', 'site_menu');
+define('LAYOUT_SITE', 'site_padrao');
 define('CSS', 'assets/css/');
 define('JS', 'assets/js/');
 define('VERSAO', '1.0');
