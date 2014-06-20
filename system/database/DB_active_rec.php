@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -815,7 +815,6 @@ class CI_DB_active_record extends CI_DB_driver {
 	 *
 	 * @param	string
 	 * @param	string	direction: asc or desc
-	 * @param	string	escape: true or false
 	 * @return	object
 	 */
 	public function order_by($orderby, $direction = '', $escape = TRUE)
@@ -839,7 +838,7 @@ class CI_DB_active_record extends CI_DB_driver {
 				$part = trim($part);
 				if ( ! in_array($part, $this->ar_aliased_tables))
 				{
-					$part = $this->_protect_identifiers(trim($part), FALSE, $escape);
+					$part = ($escape === TRUE) ? $this->_protect_identifiers(trim($part)) : trim($part);
 				}
 
 				$temp[] = $part;
@@ -849,7 +848,7 @@ class CI_DB_active_record extends CI_DB_driver {
 		}
 		else if ($direction != $this->_random_keyword)
 		{
-			$orderby = $this->_protect_identifiers($orderby, FALSE, $escape);
+			$orderby = ($escape === TRUE) ? $this->_protect_identifiers($orderby) : $orderby;
 		}
 
 		$orderby_statement = $orderby.$direction;
