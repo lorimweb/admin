@@ -111,9 +111,9 @@ abstract class MY_Controller_crud extends MY_Controller_list {
 	 *
 	 * @return void/string
 	 */
-	protected function redireciona_salvo($config = 0, $popup = NULL, $return = FALSE)
+	protected function redireciona_salvo($config = FALSE, $popup = NULL, $return = FALSE)
 	{
-		$id = 0;
+		$id = FALSE;
 
 		if (is_array($config))
 			extract($config);
@@ -321,7 +321,7 @@ abstract class MY_Controller_crud extends MY_Controller_list {
 				$popup['mensagem'] = $quantidade.' itens foram apagados.';
 				break;
 		}
-		$this->redireciona_salvo(0, $popup);
+		$this->redireciona_salvo(FALSE, $popup);
 	}
 }
 
