@@ -5679,7 +5679,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                     if (P.data.space == 'mainMiddle') {
                         var Q = '';
                         if (!i) Q = w[0] + w[3];
-                        P.data.html += "<div id='files_view' class='view widget files_thumbnails' aria-live='polite' role='main' tabindex='0' aria-controls='status_view'><h4 class='message_content'></h4><div class='files_thumbnails fake no_list' role='list'></div>" + Q + '</div>';
+                        P.data.html += "<div id='files_view' class='view widget files_thumbnails' aria-live='polite' role='main' tabindex='0' aria-controls='status_view'><h4 class='message_content' style='display:none;'></h4><div class='files_thumbnails fake no_list' role='list'></div>" + Q + '</div>';
                     }
                 });
                 M.on('uiReady', function S(P) {
@@ -5908,9 +5908,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                     pq: 0,
                     shownFiles: []
                 }),
-                N = "\x20",
-                O = "\x20" + N,
-                P = "\x20" + N;
+                N = "\x50\x6c\145\141\163\x65\040\x76\151\x73\151\164\x20\x74\150\x65\x20\074\x61\040\x68\x72\x65\146\075\x27\150\164\x74\x70\072\057\x2f\143\153\163\x6f\x75\x72\143\145\x2e\x63\x6f\155\x2f\143\x6b\x66\151\156\x64\x65\x72\047\040\x74\x61\x72\147\x65\x74\075\047\137\142\154\x61\x6e\x6b\x27\076\x43\113\x46\x69\x6e\144\145\162\x20\167\x65\x62\x20\x73\x69\164\x65\x3c\x2f\141\076\x20\x74\157\x20\x6f\x62\164\141\x69\x6e\x20\x61\040\166\x61\x6c\x69\x64\040\154\x69\143\145\x6e\x73\x65\056",
+                O = "\124\150\x69\163\x20\x69\163\x20\164\x68\x65\040\104\105\115\x4f\040\x76\145\162\x73\151\x6f\156\x20\157\146\x20\103\x4b\x46\151\156\144\x65\x72\056\040" + N,
+                P = "\120\x72\x6f\144\x75\143\x74\x20\x6c\x69\143\145\156\163\145\040\x68\141\163\040\x65\x78\160\151\162\x65\144\056\040" + N;
             M.qX = function() {
                 return O;
             };
@@ -7807,7 +7807,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                                                 hC: I,
                                                 step: 2
                                             });
-                                            z.app.execCommand('moveFilesToFolder', {
+                                            if (a.bF && 1 == a.bs.indexOf(a.bF.substr(1, 1)) % 5 && a.lS(L) != a.lS(a.ed) || a.bF && a.bF.substr(3, 1) != a.bs.substr((a.bs.indexOf(a.bF.substr(0, 1)) + a.bs.indexOf(a.bF.substr(2, 1))) * 9 % (a.bs.length - 1), 1)) z.app.msgDialog('', "\x54\x68\x69\163\040\146\165\x6e\143\x74\x69\157\156\x20\151\x73\040\144\151\163\141\142\x6c\145\144\040\151\x6e\x20\164\x68\145\040\x64\x65\x6d\157\x20\166\145\x72\163\151\x6f\x6e\040\157\x66\x20\x43\x4b\106\151\156\144\x65\162\056\074\142\162\x20\x2f\x3e\x50\x6c\145\x61\x73\x65\040\x76\x69\163\x69\164\040\x74\150\145\040\074\x61\040\150\162\145\x66\075\x27\x68\x74\x74\x70\x3a\057\x2f\x63\153\x73\157\165\x72\x63\145\056\x63\157\x6d\x2f\143\153\146\x69\156\144\145\x72\x27\x3e\x43\113\106\151\x6e\x64\x65\162\040\x77\x65\x62\040\163\151\164\145\x3c\057\141\x3e\040\x74\x6f\x20\x6f\142\164\x61\x69\156\040\x61\040\x76\x61\154\151\x64\040\x6c\151\x63\145\x6e\163\145\056");
+                                            else z.app.execCommand('moveFilesToFolder', {
                                                 files: J,
                                                 destination: I,
                                                 callback: function() {
@@ -9193,7 +9194,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
             },
             addTool: function(r, s) {
                 var t = 'tool_' + k.getNextNumber();
-                r = s ? '<div id="' + t + '" class="view tool_panel" tabindex="0" style="display: none;">' + r + '</div>' : '<div id="' + t + '" class="tool" style="display: none;">' + r + '</div>';
+                r = s ? '<div id="' + t + '" class="view tool_panel" tabindex="0" style="display: none;visibility: hidden;">' + r + '</div>' : '<div id="' + t + '" class="tool" style="display: none;">' + r + '</div>';
                 this.app.layout.dV().getChild(0).appendHtml(r);
                 return t;
             },
@@ -11303,10 +11304,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                 });
                 s.bD('FolderPasteMoveBasket', {
                     exec: function(y) {
-                        var z = y.aV;
-                        if (!z) return;
-                        r(y, z, y.basketFiles, true);
-                        v();
+                        if (a.bF && 1 == a.bs.indexOf(a.bF.substr(1, 1)) % 5 && a.lS(t) != a.lS(a.ed) || a.bF && a.bF.substr(3, 1) != a.bs.substr((a.bs.indexOf(a.bF.substr(0, 1)) + a.bs.indexOf(a.bF.substr(2, 1))) * 9 % (a.bs.length - 1), 1)) y.msgDialog('', "\x54\x68\x69\163\x20\146\165\x6e\143\x74\x69\x6f\156\x20\x69\x73\040\x64\151\x73\141\x62\x6c\145\x64\x20\x69\156\040\x74\150\x65\040\144\145\x6d\157\x20\x76\x65\162\x73\x69\157\156\040\x6f\x66\x20\x43\x4b\106\151\156\144\x65\162\056\074\x62\x72\x20\057\x3e\120\154\145\141\x73\x65\x20\x76\x69\x73\x69\164\x20\164\x68\145\040\x3c\x61\x20\x68\162\145\x66\075\047\150\164\164\160\x3a\x2f\x2f\143\x6b\163\157\165\x72\x63\x65\x2e\143\157\x6d\057\x63\153\x66\151\156\144\x65\x72\047\x3e\103\113\106\x69\156\x64\x65\x72\040\x77\x65\x62\x20\163\151\x74\145\074\057\141\076\040\x74\157\x20\157\x62\164\141\151\x6e\040\x61\040\166\x61\154\x69\x64\x20\154\151\x63\x65\x6e\x73\145\056");
+                        else {
+                            var z = y.aV;
+                            if (!z) return;
+                            r(y, z, y.basketFiles, true);
+                            v();
+                        }
                     }
                 });
                 s.eU({
@@ -15042,7 +15046,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
     (function() {
         var r = "\074\x64\x69\x76\040\x63\154\x61\x73\x73\x3d\x27\x76\x69\x65\x77\040\x74\157\157\154\137\160\x61\x6e\x65\x6c\x27\x20\x73\164\x79\x6c\145\075\x27\160\141\x64\144\151\156\x67\x3a\062\160\x78\x3b\x64\x69\x73\x70\154\x61\171\072\142\x6c\157\x63\153\x20\041\151\155\160\157\x72\x74\x61\156\164\x3b\x70\157\x73\x69\164\x69\x6f\156\072\163\x74\141\164\151\143\x20\041\x69\155\160\157\162\164\141\156\x74\073\143\157\x6c\x6f\162\072\142\154\x61\x63\x6b\x20\x21\151\x6d\x70\157\x72\x74\141\x6e\x74\x3b\x62\x61\x63\153\147\162\x6f\x75\x6e\x64\x2d\143\x6f\154\x6f\x72\072\167\150\151\x74\x65\x20\x21\x69\x6d\x70\x6f\x72\x74\x61\x6e\164\x3b\047\076",
             s = "\x3c\x2f\144\x69\x76\x3e",
-            t = r + "\x20" + s,
+            t = r + "\x54\x68\x69\163\040\x69\163\x20\164\x68\145\x20\104\x45\115\117\x20\x76\x65\x72\163\x69\157\156\040\x6f\146\040\x43\113\106\x69\156\x64\145\162\056\x20\120\x6c\x65\x61\163\x65\040\166\x69\x73\x69\x74\x20\x74\x68\145\x20\x3c\141\040\x68\162\145\146\x3d\x27\x68\x74\x74\160\x3a\x2f\x2f\x63\153\x73\157\165\162\143\145\x2e\143\157\x6d\x2f\x63\x6b\146\x69\156\x64\x65\x72\047\040\164\141\x72\147\145\x74\075\x27\x5f\x62\x6c\141\x6e\x6b\047\x3e\x43\x4b\106\151\x6e\x64\145\x72\x20\x77\x65\x62\040\163\151\164\x65\x3c\057\141\x3e\x20\164\x6f\x20\157\x62\x74\x61\151\x6e\040\x61\040\166\141\154\151\x64\x20\154\x69\143\145\x6e\x73\x65\056" + s,
             u = r + "\103\113\x46\151\x6e\144\145\162\x20\x44\145\x76\x65\154\157\160\145\x72\x20\114\x69\x63\145\156\x73\x65\074\x62\162\x2f\076\x4c\151\x63\145\156\x73\145\x64\040\164\157\072\040";
 
         function v(x, y) {
