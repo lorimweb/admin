@@ -13,24 +13,6 @@
  */
 class Configuracoes_model extends MY_Model {
 	/**
-	 * Caminho onde estão salvas as imagens.
-	 * 
-	 * @var string
-	 */
-	public $caminho = 'assets/img/configuracoes/';
-	/**
-	 * Pasta do servidor onde estão salvas as imagens.
-	 * 
-	 * @var string
-	 */
-	public $pasta = NULL;
-	/**
-	 * URL base onde estão salvas as imagens.
-	 * 
-	 * @var string
-	 */
-	public $url = NULL;
-	/**
 	 * As dimensões padrão da imagem.
 	 * 
 	 * @var string
@@ -51,6 +33,7 @@ class Configuracoes_model extends MY_Model {
 	public function __construct ()
 	{
 		parent::__construct();
+		$this->caminho = 'assets/img/configuracoes/';
 		$this->pasta = realpath(APPPATH.'../').'/'.$this->caminho;
 		$this->url = base_url($this->caminho);
 
@@ -68,11 +51,10 @@ class Configuracoes_model extends MY_Model {
 	 */
 	public function imagem_link_recortar($config_id, $tipo = 'topo')
 	{
-		$link = '';
+		$link = $this->tabela;
 		$dados = $this->id($config_id);
 		if ( ! empty($dados->{'imagem_'.$tipo}) && is_file($this->pasta . $dados->{'imagem_'.$tipo}))
 		{
-			$link = $this->tabela;
 			$imagem = $this->caminho . $dados->{'imagem_'.$tipo};
 			list($largura, $altura) = explode('x', $this->{'dimensoes_'.$tipo});
 			$link = site_url('imagens/recortar/?arquivo='.$imagem.'&altura='.$altura.'&largura='.$largura.'&retorno='.$link);
@@ -86,7 +68,7 @@ class Configuracoes_model extends MY_Model {
 	 */
 	public function cria_tabela()
 	{
-		if ( ! is_dir($this->pasta)) mkdir($this->pasta, 0777);
+		if ( ! empty($this->pasta) && ! is_dir($this->pasta)) mkdir($this->pasta, 0777);
 		$sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tabela.'` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `dt_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

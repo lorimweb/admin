@@ -36,7 +36,30 @@ class MY_Model extends CI_Model {
 	 * @var boolean
 	 */
 	public $mostra_sql = FALSE;
-
+	/**
+	 * Caminho onde estão salvas as imagens.
+	 * 
+	 * @var string
+	 */
+	public $caminho = 'assets/img/';
+	/**
+	 * Pasta do servidor onde estão salvas as imagens.
+	 * 
+	 * @var string
+	 */
+	public $pasta = NULL;
+	/**
+	 * URL base onde estão salvas as imagens.
+	 * 
+	 * @var string
+	 */
+	public $url = NULL;
+	/**
+	 * As dimensões padrão da imagem.
+	 * 
+	 * @var string
+	 */
+	public $dimensoes = '640x480';
 	/**
 	 * Construtor que inicializa a classe pai CI_Model
 	 *
@@ -213,6 +236,25 @@ class MY_Model extends CI_Model {
 			$ret['num_itens'] = 0;
 		}
 		return $ret;
+	}
+	/**
+	 * Função que gera o link para fazer o crop da imagem.
+	 *
+	 * @param integer $id O identificador do do item.
+	 * 
+	 * @return string
+	 */
+	public function imagem_link_recortar($id)
+	{
+		$link = $this->tabela;
+		$dados = $this->id($id);
+		if (isset($dados->imagem) && ! empty($dados->imagem) && is_file($this->pasta . $dados->imagem))
+		{
+			$imagem = $this->caminho . $dados->imagem;
+			list($largura, $altura) = explode('x', $this->dimensoes);
+			$link = site_url('imagens/recortar/?arquivo='.$imagem.'&altura='.$altura.'&largura='.$largura.'&retorno='.$link);
+		}
+		return $link;
 	}
 	/**
 	 * Função que configura a lista de filtros
