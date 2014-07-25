@@ -54,12 +54,12 @@ if ( ! function_exists('formata_data_hora_mysql'))
 	 */
 	function formata_data_hora_mysql($data, $agora = TRUE)
 	{
-		$data = explode(' ', $data);
+		$data = explode(' ', str_replace('_', '', $data));
 		$data[0] = formata_data_mysql($data[0], FALSE);
-
 		if ($data[0])
 		{
-			$data[1] = (isset($data[1]) && strlen($data[1]) === 5) ? $data[1] . ':00' : '00:00:00';
+			$data[1] = isset($data[1]) ? str_replace(array('(', ')'), '', $data[1]) : '';
+			$data[1] = (strlen($data[1]) === 5) ? $data[1] . ':00' : '00:00:00';
 			$ret = implode(' ', $data);
 		}
 		else
@@ -83,20 +83,20 @@ if ( ! function_exists('formata_data_mysql'))
 	function formata_data_mysql($data, $agora = TRUE)
 	{
 		$data = str_replace('_', '', $data);
-				$ret = ($agora) ? date('Y-m-d') : NULL;
-				if (strlen($data) === 10)
-				{
-					if (substr_count($data, '/') === 2)
-					{
-						$data = explode('/', $data);
-						if (count($data) === 3)
-							$ret = implode('-', array_reverse($data));
-					}
-					elseif (substr_count($data, '-') === 2)
-					{
-						$ret = $data;
-					}
-				}
+		$ret = ($agora) ? date('Y-m-d') : NULL;
+		if (strlen($data) === 10)
+		{
+			if (substr_count($data, '/') === 2)
+			{
+				$data = explode('/', $data);
+				if (count($data) === 3)
+					$ret = implode('-', array_reverse($data));
+			}
+			elseif (substr_count($data, '-') === 2)
+			{
+				$ret = $data;
+			}
+		}
 		return $ret;
 	}
 }
