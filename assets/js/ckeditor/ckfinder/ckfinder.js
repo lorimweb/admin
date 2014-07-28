@@ -2,7 +2,7 @@
 Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
-
+CKFINDER_LOG = false;
 (function() {
     var a = (function() {
         var h = {
@@ -9194,7 +9194,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
             },
             addTool: function(r, s) {
                 var t = 'tool_' + k.getNextNumber();
-                r = s ? '<div id="' + t + '" class="view tool_panel" tabindex="0" style="display: none;visibility: hidden;">' + r + '</div>' : '<div id="' + t + '" class="tool" style="display: none;">' + r + '</div>';
+                r = s ? '<div id="' + t + '" class="view tool_panel" tabindex="0" style="display: none;">' + r + '</div>' : '<div id="' + t + '" class="tool" style="display: none;">' + r + '</div>';
                 this.app.layout.dV().getChild(0).appendHtml(r);
                 return t;
             },
