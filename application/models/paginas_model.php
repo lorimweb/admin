@@ -23,7 +23,7 @@ class Paginas_model extends MY_Model {
 		parent::__construct();
 		$this->titulo = 'Páginas';
 		$this->tabela = 'paginas';
-		$this->colunas = '`dt_registro` as dt_tmp,`titulo`,`slug`,`ativo`,`conteudo`,DATE_FORMAT(`dt_registro`, "%d/%m/%Y") as `dt_registro`, `id`';
+		$this->colunas = '`id`, `dt_registro` as dt_tmp,`titulo`,`slug`,`ativo`,`conteudo`,DATE_FORMAT(`dt_registro`, "%d/%m/%Y") as `dt_registro`';
 	}
 	/**
 	 * cria a tabela dos paginas

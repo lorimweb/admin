@@ -56,6 +56,7 @@ define('CSS', 'assets/css/');
 define('JS', 'assets/js/');
 define('VERSAO', '1.0');
 define('N_ITENS_PAGINA', 50);
+define('N_ITENS_SITE', 10);
 define('TEMPO_SESSAO', 3600);
 define('HOME', 'admins');
 define('MSG_SALVO', 'Os dados foram salvos com sucesso!');

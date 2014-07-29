@@ -54,6 +54,7 @@ class Paginas extends MY_Controller_crud {
 	private function _init_cabecalho()
 	{
 		$this->cabecalho = array(
+			'id' => 'ID',
 			'dt_registro' => 'DT Registro',
 			'titulo' => 'Título',
 			'slug' => 'Slug',

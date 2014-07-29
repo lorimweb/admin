@@ -23,11 +23,9 @@ class Contatos_model extends MY_Model {
 		parent::__construct();
 		$this->titulo = 'Contatos';
 		$this->tabela = 'contatos';
-		$this->colunas = '`dt_registro` as dt_tmp, `nome`, `email`, 
-			`telefone1`, `telefone2`, `ativo`,
-            DATE_FORMAT(`dt_registro`, "%d/%m/%Y") as `dt_registro`,
-            `conteudo`,
-            `id`';
+		$this->colunas = '`id`, `dt_registro` as dt_tmp, `nome`, `email`, 
+			`telefone1`, `telefone2`, `ativo`, `conteudo`,
+            DATE_FORMAT(`dt_registro`, "%d/%m/%Y") as `dt_registro`';
 	}
 	/**
 	 * cria a tabela dos menus

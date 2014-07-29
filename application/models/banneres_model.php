@@ -28,7 +28,7 @@ class Banneres_model extends MY_Model {
 
 		$this->titulo = 'Banneres';
 		$this->tabela = 'banneres';
-		$this->colunas = '`imagem`,`dt_registro` as dt_tmp,`nome`,`link`,`ordem`,`ativo`,DATE_FORMAT(`dt_registro`, "%d/%m/%Y") as `dt_registro`, `id`, CONCAT("<img src=\"'.$this->url.'/",imagem,"\" alt=\"",nome,"\" width=\"100\" class=\"img-responsive\" />") img';
+		$this->colunas = '`id`, `imagem`,`dt_registro` as dt_tmp,`nome`,`link`,`ordem`,`ativo`,DATE_FORMAT(`dt_registro`, "%d/%m/%Y") as `dt_registro`, CONCAT("<img src=\"'.$this->url.'/",imagem,"\" alt=\"",nome,"\" width=\"100\" class=\"img-responsive\" />") img';
 	}
 	/**
 	 * cria a tabela dos banneres

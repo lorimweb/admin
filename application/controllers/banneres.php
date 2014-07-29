@@ -61,6 +61,7 @@ class Banneres extends MY_Controller_crud {
 	private function _init_cabecalho()
 	{
 		$this->cabecalho = array(
+			'id' => 'ID',
 			'img' => 'Imagem',
 			'dt_registro' => 'DT Registro',
 			'nome' => 'Nome',

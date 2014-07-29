@@ -28,7 +28,7 @@ class Noticias_model extends MY_Model {
 
 		$this->titulo = 'Notícias';
 		$this->tabela = 'noticias';
-		$this->colunas = '`imagem`,`dt_registro` as dt_tmp,`titulo`,`slug`,`ordem`,`destaque`,`ativo`,`chamada`,`conteudo`,DATE_FORMAT(`dt_registro`, "%d/%m/%Y") as `dt_registro`, `id`, CONCAT("<img src=\"'.$this->url.'/",imagem,"\" alt=\"",titulo,"\" width=\"100\" class=\"img-responsive\" />") img';
+		$this->colunas = '`id`, `imagem`,`dt_registro` as dt_tmp,`titulo`,`slug`,`ordem`,`destaque`,`ativo`,`chamada`,`conteudo`,DATE_FORMAT(`dt_registro`, "%d/%m/%Y") as `dt_registro`, CONCAT("<img src=\"'.$this->url.'/",imagem,"\" alt=\"",titulo,"\" width=\"100\" class=\"img-responsive\" />") img';
 	}
 	/**
 	 * cria a tabela dos noticias

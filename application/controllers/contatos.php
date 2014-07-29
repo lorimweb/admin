@@ -55,6 +55,7 @@ class Contatos extends MY_Controller_crud {
 	private function _init_cabecalho()
 	{
 		$this->cabecalho = array(
+			'id' => 'ID',
 			'dt_registro' => 'Dt Registro',
 			'nome' => 'Nome',
 			'telefone1' => 'Telefone 1',

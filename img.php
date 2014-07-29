@@ -129,17 +129,7 @@ if(! defined('WEBSHOT_XVFB_RUNNING') )	define ('WEBSHOT_XVFB_RUNNING', false);		
 
 // If ALLOW_EXTERNAL is true and ALLOW_ALL_EXTERNAL_SITES is false, then external images will only be fetched from these domains and their subdomains. 
 if(! isset($ALLOWED_SITES)){
-	$ALLOWED_SITES = array (
-		'flickr.com',
-		'staticflickr.com',
-		'picasa.com',
-		'img.youtube.com',
-		'upload.wikimedia.org',
-		'photobucket.com',
-		'imgur.com',
-		'imageshack.us',
-		'tinypic.com',
-	);
+	$ALLOWED_SITES = array();
 }
 // -------------------------------------------------------------
 // -------------- STOP EDITING CONFIGURATION HERE --------------
@@ -505,7 +495,7 @@ class timthumb {
 		}
 
 		if (!function_exists ('imagecreatetruecolor')) {
-		    return $this->error('GD Library Error: imagecreatetruecolor does not exist - please contact your webhost and ask them to install the GD library');
+			return $this->error('GD Library Error: imagecreatetruecolor does not exist - please contact your webhost and ask them to install the GD library');
 		}
 
 		if (function_exists ('imagefilter') && defined ('IMG_FILTER_NEGATE')) {
@@ -537,8 +527,8 @@ class timthumb {
 
 		// set default width and height if neither are set already
 		if ($new_width == 0 && $new_height == 0) {
-		    $new_width = (int) DEFAULT_WIDTH;
-		    $new_height = (int) DEFAULT_HEIGHT;
+			$new_width = (int) DEFAULT_WIDTH;
+			$new_height = (int) DEFAULT_HEIGHT;
 		}
 
 		// ensure size limits can not be abused
@@ -588,14 +578,14 @@ class timthumb {
 			$canvas_color =  str_repeat(substr($canvas_color, 0, 1), 2) . str_repeat(substr($canvas_color, 1, 1), 2) . str_repeat(substr($canvas_color, 2, 1), 2); 
 		} else if (strlen($canvas_color) != 6) {
 			$canvas_color = DEFAULT_CC; // on error return default canvas color
- 		}
+		}
 
 		$canvas_color_R = hexdec (substr ($canvas_color, 0, 2));
 		$canvas_color_G = hexdec (substr ($canvas_color, 2, 2));
 		$canvas_color_B = hexdec (substr ($canvas_color, 4, 2));
 
 		// Create a new transparent color for image
-	    // If is a png and PNG_IS_TRANSPARENT is false then remove the alpha transparency 
+		// If is a png and PNG_IS_TRANSPARENT is false then remove the alpha transparency 
 		// (and if is set a canvas color show it in the background)
 		if(preg_match('/^image\/png$/i', $mimeType) && !PNG_IS_TRANSPARENT && $canvas_trans){ 
 			$color = imagecolorallocatealpha ($canvas, $canvas_color_R, $canvas_color_G, $canvas_color_B, 127);		
@@ -923,7 +913,7 @@ class timthumb {
 		//try to remove any relative paths
 		$remove_relatives = '/\w+\/\.\.\//';
 		while(preg_match($remove_relatives,$path)){
-		    $path = preg_replace($remove_relatives, '', $path);
+			$path = preg_replace($remove_relatives, '', $path);
 		}
 		//if any remain use PHP realpath to strip them out, otherwise return $path
 		//if using realpath, any symlinks will also be resolved

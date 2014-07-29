@@ -53,19 +53,28 @@ class Site extends MY_Controller {
 	 * Função que retorna todas as notícias.
 	 * 
 	 * @param integer $quantidade quantidade de registros retornados
-	 * @param boolean $destaque   se são só noticias em destaque
+	 * @param char    $destaque   (S, N)
+	 * @param string  $url        a url padrão da navegação
 	 * 
-	 * @return array             um array com os objetos das noticias
+	 * @return array              um array com os objetos das noticias
 	 */
-	private function _noticias($quantidade = NULL, $destaque = FALSE)
+	private function _noticias($quantidade = NULL, $destaque = NULL, $url = FALSE)
 	{
+		$ret = array();
+		$inicio = intval($this->input->get('per_page'));
 		$filtro = 'ativo = "S"';
-		$ordem = '2';
+		$ordem = '1';
 		$ordem_tipo = 'desc';
-		if ($destaque)
-			$filtro .= ' and destaque = "S"';
-		$lista = $this->noticias_model->lista($filtro, $ordem, $ordem_tipo, 0, $quantidade);
-		return $lista['itens'];
+		if ( ! is_null($destaque)) $filtro .= ' and destaque = "'.$destaque.'"';
+		if (is_null($quantidade) && ! empty($url)) $quantidade = N_ITENS_SITE;
+
+		$ret = $this->noticias_model->lista($filtro, $ordem, $ordem_tipo, $inicio, $quantidade);
+
+		if ($url)
+			$ret['paginacao'] = $this->_paginacao($ret['num_itens'], $url);
+		else
+			$ret = $ret['itens'];
+		return $ret;
 	}
 	/**
 	 * Função que retorna todas os banneres.
@@ -112,8 +121,45 @@ class Site extends MY_Controller {
 		{
 			$quantidade = NULL;
 		}
-		$data['noticias'] = $this->_noticias($quantidade);
+		$data['noticias'] = $this->_noticias($quantidade, NULL, site_url('site/noticias/?'));
 		$this->_carrega_view($data, $titulo);
+	}
+	/**
+	 * Carrega paginação
+	 *
+	 * @param int    $total_itens o numero total de registros.
+	 * @param string $url         a url que esta sendo acessada.
+	 *
+	 * @return string             html da paginacao
+	 */
+	private function _paginacao($total_itens, $url)
+	{
+		$this->load->library('pagination');
+		$config = array(
+			'page_query_string' => TRUE,
+			'base_url' 			=> $url,
+			'total_rows' 		=> $total_itens,
+			'per_page' 			=> N_ITENS_SITE,
+			'uri_segment' 		=> 5,
+			'first_link'		=> '&larr;',
+			'last_link'			=> '&rarr;',
+			'next_link'			=> '&raquo;',
+			'prev_link'			=> '&laquo;',
+			'first_tag_open' 	=> '<li>',
+			'first_tag_close'	=> '</li>',
+			'last_tag_open' 	=> '<li>',
+			'last_tag_close'	=> '</li>',
+			'next_tag_open' 	=> '<li>',
+			'next_tag_close'	=> '</li>',
+			'prev_tag_open' 	=> '<li>',
+			'prev_tag_close'	=> '</li>',
+			'num_tag_open' 		=> '<li>',
+			'num_tag_close'		=> '</li>',
+			'cur_tag_open' 		=> '<li class="active"><a href="#">',
+			'cur_tag_close'		=> '<span class="sr-only">(current)</span></a></li>',
+		);
+		$this->pagination->initialize($config);
+		return $this->pagination->create_links();
 	}
 	/**
 	 * Página estáticas.
