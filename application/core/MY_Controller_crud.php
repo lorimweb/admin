@@ -29,6 +29,17 @@ abstract class MY_Controller_crud extends MY_Controller_list {
 	public function __construct($parametros = TRUE)
 	{
 		parent::__construct($parametros);
+		$this->validacao = array(
+			regra_validacao('nome', 'Nome'),
+			regra_validacao('dt_registro', 'Data Registro', 'trim', 'readonly="readonly"', '', 'date'),
+			regra_validacao('ativo', 'Ativo', '', '', '', 'select', sim_nao())
+		);
+		$this->cabecalho = array(
+			'id' => 'ID',
+			'dt_registro' => 'DT Registro',
+			'nome' => 'Nome',
+			'ativo'	=> 'Ativo'
+		);
 	}
 	/**
 	 * Configuração extra do formulário.
@@ -48,6 +59,21 @@ abstract class MY_Controller_crud extends MY_Controller_list {
 			'dados'  => $dados
 		);
 		$this->gg2_layouts->navegacao($this->meu_model->titulo, $this->modulo . '/listar', '0');
+
+		return $data;
+	}
+	/**
+	 * Função sobrescrita que retorna todos os dados postados
+	 * 
+	 * @param string $prefix os prefixos das chaves do array
+	 * 
+	 * @return array
+	 */
+	protected function dados_formulario($prefix = '')
+	{
+		$data = parent::dados_formulario($prefix);
+		if (isset($data['dt_registro']) && ! empty($data['dt_registro']))
+			$data['dt_registro'] = formata_data_mysql($data['dt_registro']).' 23:59:59';
 
 		return $data;
 	}
@@ -99,7 +125,12 @@ abstract class MY_Controller_crud extends MY_Controller_list {
 	 */
 	protected function init_filtros($valores = array(), $url = '')
 	{
-		return $this->gg2_filtros->init(array(), $valores, $url);
+		$itens[] = filtro_config('id', 'ID', 'where');
+		$itens[] = filtro_config('nome', 'Nome', 'like');
+		$itens[] = filtro_config('ativo', 'Ativo', 'where', 'select', sim_nao());
+
+		$filtros = $this->gg2_filtros->init($itens, $valores, $url, count($itens), $this->botoes_filtro());
+		return $filtros;
 	}
 	/**
 	 * Função executada apos salvar os dados, serve para decidir o que fazer apos a operação

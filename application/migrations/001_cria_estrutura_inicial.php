@@ -73,9 +73,8 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	{
 		foreach ($this->_modulos as $modulo)
 		{
-			$this->{$modulo.'_model'}->cria_tabela();
+			$this->{$modulo.'_model'}->adicionar_tabela();
 		}
-		$this->_cria_tabela_sessoes();
 	}
 	/**
 	 * remove as tabelas
@@ -87,9 +86,8 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 		$this->_modulos = array_reverse($this->_modulos);
 		foreach ($this->_modulos as $modulo)
 		{
-			$this->dbforge->drop_table($this->{$modulo.'_model'}->tabela);
+			$this->{$modulo.'_model'}->remover_tabela();
 		}
-		$this->dbforge->drop_table('admins_sessoes');
 	}
 	/**
 	 * cria as tabelas
@@ -99,25 +97,6 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	private function _add_registros()
 	{
 		$this->_add_registros_menus();
-	}
-	/**
-	 * cria a tabela da sessao
-	 *
-	 * @return integer
-	 */
-	private function _cria_tabela_sessoes()
-	{
-		$sql = 'CREATE TABLE IF NOT EXISTS `admins_sessoes` (
-		  `id` char(32) NOT NULL,
-		  `dh_inicio` datetime DEFAULT NULL,
-		  `dh_termino` datetime DEFAULT NULL,
-		  `url` tinytext,
-		  `ip` varchar(15) DEFAULT NULL,
-		  `admin_id` int(11) NOT NULL,
-		  PRIMARY KEY (`id`)
-		)';
-		$this->db->query($sql);
-		return $this->db->affected_rows();
 	}
 	/**
 	 * adiciona os menus padrão

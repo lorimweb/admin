@@ -72,9 +72,6 @@ class Paginas extends MY_Controller_crud {
 	{
 		$data = parent::dados_formulario($prefix);
 		$data['slug'] = slug($data['titulo']);
-		if ( ! empty($data['dt_registro']))
-			$data['dt_registro'] = formata_data_mysql($data['dt_registro']) . ' 23:59:59';
-
 		return $data;
 	}
 	/**

@@ -66,7 +66,7 @@ class Configuracoes_model extends MY_Model {
 	 *
 	 * @return integer
 	 */
-	public function cria_tabela()
+	public function adicionar_tabela()
 	{
 		if ( ! empty($this->pasta) && ! is_dir($this->pasta)) mkdir($this->pasta, 0777);
 		$sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tabela.'` (

@@ -87,26 +87,6 @@ class Admins extends MY_Controller_crud {
 
 		return $data;
 	}
-	/**
-	 * inicializa e configura os filtros que vieram do formulário da busca
-	 * tambem configura o html do formulario da busca
-	 * 
-	 * @param array  $valores os valores que vieram via get do formulário de busca
-	 * @param string $url     a url base do formulário de busca
-	 *
-	 * @return Gg2_filtro
-	 *
-	 */
-	protected function init_filtros($valores = array(), $url = '')
-	{
-		$itens[] = filtro_config('id', 'ID', 'where');
-		$itens[] = filtro_config('nome', 'Nome', 'like');
-		$itens[] = filtro_config('login', 'Login', 'like');
-		$itens[] = filtro_config('ativo', 'Ativo', 'where', 'select', sim_nao());
-
-		$filtros = $this->gg2_filtros->init($itens, $valores, $url, count($itens), $this->botoes_filtro());
-		return $filtros;
-	}
 }
 
 /* End of file admins.php */

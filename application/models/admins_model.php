@@ -61,11 +61,22 @@ class Admins_model extends MY_Model {
 		return sha1($senha.$login);
 	}
 	/**
+	 * exclui a tabela
+	 *
+	 * @return void
+	 */
+	public function remover_tabela()
+	{
+		$sql = 'DROP TABLE IF EXISTS `'.$this->tabela.'_sessoes`';
+		$this->db->query($sql);
+		parent::remover_tabela();
+	}
+	/**
 	 * cria a tabela dos admins
 	 *
 	 * @return integer
 	 */
-	public function cria_tabela()
+	public function adicionar_tabela()
 	{
 		$sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tabela.'` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -78,8 +89,28 @@ class Admins_model extends MY_Model {
 		  UNIQUE KEY `login` (`login`)
 		)';
 		$this->db->query($sql);
+		$this->_cria_tabela_sessoes();
 		$ret = $this->_add_registros();
 		return $ret;
+	}
+	/**
+	 * cria a tabela da sessao
+	 *
+	 * @return integer
+	 */
+	private function _cria_tabela_sessoes()
+	{
+		$sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tabela.'_sessoes` (
+		  `id` char(32) NOT NULL,
+		  `dh_inicio` datetime DEFAULT NULL,
+		  `dh_termino` datetime DEFAULT NULL,
+		  `url` tinytext,
+		  `ip` varchar(15) DEFAULT NULL,
+		  `admin_id` int(11) NOT NULL,
+		  PRIMARY KEY (`id`)
+		)';
+		$this->db->query($sql);
+		return $this->db->affected_rows();
 	}
 	/**
 	 * adiciona o admin padrão

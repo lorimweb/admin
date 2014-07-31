@@ -30,7 +30,7 @@ class Admins_menus_model extends MY_Model {
 	 *
 	 * @return integer
 	 */
-	public function cria_tabela()
+	public function adicionar_tabela()
 	{
 		$sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tabela.'` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,

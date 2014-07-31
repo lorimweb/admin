@@ -23,7 +23,7 @@ class MY_Model extends CI_Model {
 	 * 
 	 * @var string
 	 */
-	public $colunas = '*';
+	public $colunas = '`id`, `dt_registro` as dt_tmp, `nome`, `ativo`, DATE_FORMAT(`dt_registro`, "%d/%m/%Y") as `dt_registro`';
 	/**
 	 * Nome da chave primaria da tabela.
 	 * 
@@ -68,6 +68,32 @@ class MY_Model extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
+	}
+	/**
+	 * cria a tabela
+	 *
+	 * @return void
+	 */
+	public function adicionar_tabela()
+	{
+		$sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tabela.'` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `dt_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		  `nome` varchar(100) NOT NULL,
+		  `ativo` set(\'S\',\'N\') NOT NULL,
+		  PRIMARY KEY (`id`)
+		)';
+		$this->db->query($sql);
+	}
+	/**
+	 * exclui a tabela
+	 *
+	 * @return void
+	 */
+	public function remover_tabela()
+	{
+		$sql = 'DROP TABLE IF EXISTS `'.$this->tabela.'`';
+		$this->db->query($sql);
 	}
 	/**
 	 * Função que retorna a lista com base na busca do BD
