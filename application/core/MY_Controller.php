@@ -52,11 +52,11 @@ class MY_Controller extends CI_Controller {
 		$this->modulo = $this->router->class;
 		$this->acao = $this->router->method;
 
-		$this->load->library(array('gg2_layouts','gg2_listagem','gg2_filtros','gg2_sessao'));
+		$this->load->library(array('gg2_layouts','gg2_listagem','gg2_filtros'));
 		$this->load->helper(array('gg2_extra','gg2_formatacoes','gg2_html','gg2_validacoes'));
 		if ($verificar_login)
 		{
-			$this->gg2_sessao->verifica();
+			$this->session->verifica();
 			$this->user = $this->session->userdata('usuario');
 		}
 	}

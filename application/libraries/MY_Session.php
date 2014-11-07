@@ -10,13 +10,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Gg2_sessao {
-	/**
-	 * Instancia do core do framework CodeIgniter.
-	 * 
-	 * @var CodeIgniter
-	 */
-	private $_ci;
+class MY_Session extends CI_Session {
 	/**
 	 * Nome da tabela na base de dados.
 	 * 
@@ -37,8 +31,8 @@ class Gg2_sessao {
 	 */
 	public function __construct()
 	{
-		$this->_ci =& get_instance();
-		$this->_db = $this->_ci->db;
+		parent::__construct();
+		$this->_db = $this->CI->db;
 	}
 
 	/**
@@ -48,10 +42,14 @@ class Gg2_sessao {
 	 */
 	private function _esta_valida()
 	{
-		$tmp = $this->_buscar($this->_ci->session->userdata('session_id'));
+		$ret = 0;
+		$tmp = $this->_buscar($this->userdata('session_id'));
 		if ($tmp)
-			$tmp = tem_permissao($this->_ci->router->class, $this->_ci->router->method);
-		return $tmp;
+		{
+			$ret = 1;
+			if (tem_permissao($this->CI->router->class, $this->CI->router->method)) $ret = 2;
+		}
+		return $ret;
 	}
 	/**
 	 * grava ou atualiza na tabela da sessao o id da sessao e o usuario 
@@ -67,15 +65,14 @@ class Gg2_sessao {
 			'id' 			=> $id,
 			'dh_inicio' 	=> date('Y-m-d H:i:s', mktime()),
 			'dh_termino' 	=> date('Y-m-d H:i:s', mktime() + TEMPO_SESSAO),
-			'url' 			=> $this->_ci->uri->uri_string(),
-			'ip' 			=> $this->_ci->input->ip_address(),
+			'url' 			=> $this->CI->uri->uri_string(),
+			'ip' 			=> $this->CI->input->ip_address(),
 			'admin_id' 		=> $id_user,
 		);
 		if ($this->_buscar($id, FALSE))
 			$this->_db->update($this->_tabela, $data, array('id' => $id));
 		else
 			$this->_db->insert($this->_tabela, $data);
-
 	}
 	/**
 	 * apaga da tabela da sessao o id
@@ -108,11 +105,7 @@ class Gg2_sessao {
 			->limit(1)
 			->get($this->_tabela)
 			->result();
-		if (isset($tmp[0]))
-			$tmp = $tmp[0];
-		else
-			$tmp = FALSE;
-		//print $this->_db->last_query();die();
+		$tmp = (isset($tmp[0])) ? $tmp[0] : FALSE;
 		return $tmp;
 	}
 	/**
@@ -123,12 +116,19 @@ class Gg2_sessao {
 	 */
 	public function verifica()
 	{
-		if ($this->_ci->session->userdata('usuario'))
+		if ($this->userdata('usuario'))
 		{
-			if ($this->_esta_valida())
+			$valida = $this->_esta_valida();
+			if ( ! empty($valida))
+			{
 				$this->registra();
+				if ($valida === 1)
+					$this->remove(5);
+			}
 			else
+			{
 				$this->remove(3);
+			}
 		}
 		else
 		{
@@ -146,17 +146,12 @@ class Gg2_sessao {
 	{
 		if ($admin)
 		{
-			$dados = array(
-				'usuario' => $admin->id,
-				'nome' => $admin->nome,
-				'permissoes' => $admin->permissoes,
-				'menu' => $admin->menu,
-			);
-			$this->_ci->session->set_userdata($dados);
+			$this->set_userdata('usuario', $admin->id);
+			$this->set_userdata('nome', $admin->nome);
+			$this->set_userdata('permissoes', $admin->permissoes);
+			$this->set_userdata('menu', $admin->menu);
 		}
-		$this->_gravar($this->_ci->session->userdata('session_id'), $this->_ci->session->userdata('usuario'));
-
-		//print $this->_db->last_query();die();
+		$this->_gravar($this->userdata('session_id'), $this->userdata('usuario'));
 	}
 	/**
 	 * remove a sessao
@@ -167,11 +162,11 @@ class Gg2_sessao {
 	 */
 	public function remove($id = 2)
 	{
-		$this->_apagar($this->_ci->session->userdata('session_id'));
-		$this->_ci->session->sess_destroy();
+		$this->_apagar($this->userdata('session_id'));
+		$this->sess_destroy();
 		redirect('login/index/'.$id);
 	}
 }
 
-/* End of file gg2_sessao.php */
-/* Location: ./libraries/gg2_sessao.php */
+/* End of file MY_Session.php */
+/* Location: ./libraries/MY_Session.php */

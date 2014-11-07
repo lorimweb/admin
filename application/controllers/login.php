@@ -73,7 +73,7 @@ class Login extends MY_Controller {
 	 */
 	public function logout()
 	{
-		$this->gg2_sessao->remove();
+		$this->session->remove();
 	}
 
 	/**
@@ -90,7 +90,7 @@ class Login extends MY_Controller {
 		$admin = $this->admins_model->login($login, $senha);
 		if (isset($admin->id))
 		{
-			$this->gg2_sessao->registra($admin);
+			$this->session->registra($admin);
 			return TRUE;
 		}
 		else

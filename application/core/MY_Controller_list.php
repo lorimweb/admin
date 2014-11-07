@@ -151,11 +151,13 @@ abstract class MY_Controller_list extends MY_Controller {
 	 */
 	protected function init_listagem($itens = array(), $url = '', $exportar = FALSE, $selecionavel = array())
 	{
-		$config = array('itens' => $itens);
+		$config = array(
+			'itens' => $itens,
+			'cabecalhos' => isset($this->cabecalho[$this->acao]) ? $this->cabecalho[$this->acao] : $this->cabecalho
+		);
 		if ( ! $exportar)
 		{
 			$config['botoes'] = $this->botoes_listar();
-			$config['cabecalhos'] = isset($this->cabecalho['listar']) ? $this->cabecalho['listar'] : $this->cabecalho;
 			$config['selecionavel'] = empty($selecionavel) ? array('chave' => $this->meu_model->id, 'display' => 'none') : $selecionavel;
 			$config['url'] = $url;
 			$config['ordenar_por'] = pega_chave_array($config['cabecalhos'], ($this->ordenar_por - 1));
@@ -165,8 +167,6 @@ abstract class MY_Controller_list extends MY_Controller {
 		}
 		else
 		{
-			$config['cabecalhos'] = isset($this->cabecalho['exportar']) ? $this->cabecalho['exportar'] : $this->cabecalho;
-
 			return $this->gg2_listagem->init($config)->xls();
 		}
 	}

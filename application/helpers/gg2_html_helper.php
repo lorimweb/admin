@@ -78,6 +78,7 @@ if ( ! function_exists('monta_campos_form'))
 					$html .= PHP_EOL.'<div '.$campo['extra_div'].'>';
 					$html .= PHP_EOL.'<label for="gg2-campo-'.$campo['field'].'">'.$campo['label'].($requerido ? '<span class="gg2-requerido">*</span>' : '').'</label>';
 				}
+				$placeholder = 'id="gg2-campo-'.$campo['field'].'" placeholder="'.strip_tags($campo['label']).'" '.$campo['extra_campo'];
 				switch ($campo['tipo'])
 				{
 					case 'radio':
@@ -97,43 +98,43 @@ if ( ! function_exists('monta_campos_form'))
 						$html .= PHP_EOL.'</select>';
 						break;
 					case 'textarea':
-						$html .= PHP_EOL.'<textarea name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].'>'. $value.'</textarea>';
+						$html .= PHP_EOL.'<textarea name="'.$campo['field'].'" '.$placeholder.'>'. $value.'</textarea>';
 						break;
 					case 'file':
-						$html .= PHP_EOL.'<input type="file" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' data-value="'.$dados->{$campo['field']}.'" />';
+						$html .= PHP_EOL.'<input type="file" name="'.$campo['field'].'" '.$placeholder.' data-value="'.$dados->{$campo['field']}.'" />';
 						break;
 					case 'date':
 						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-date ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-date"';
-						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="00/00/0000" />';
+						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" '.$placeholder.' value="'. $value.'" data-mask="00/00/0000" />';
 						break;
 					case 'datetime':
 						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-datetime ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-datetime"';
-						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="00/00/0000 (00:00)" />';
+						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" '.$placeholder.' value="'. $value.'" data-mask="00/00/0000 (00:00)" />';
 						break;
 					case 'money':
 						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-money ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-money"';
-						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="#.##0,00" data-mask-reverse="true" data-mask-maxlength="false" />';
+						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" '.$placeholder.' value="'. $value.'" data-mask="#.##0,00" data-mask-reverse="true" data-mask-maxlength="false" />';
 						break;
 					case 'number':
 						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-number ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-number"';
-						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="0#" data-mask-maxlength="false" />';
+						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" '.$placeholder.' value="'. $value.'" data-mask="0#" data-mask-maxlength="false" />';
 						break;
 					case 'phone':
 						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-phone ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-phone"';
-						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="(##) ####-####9" />';
+						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" '.$placeholder.' value="'. $value.'" />';
 						break;
 					case 'cep':
 						if (strstr($campo['extra_campo'], 'class="')) $campo['extra_campo'] = str_replace('class="', 'class="gg2-campo-cep ', $campo['extra_campo']);
 						else $campo['extra_campo'] .= ' class="gg2-campo-cep"';
-						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" data-mask="#####-###" />';
+						$html .= PHP_EOL.'<input type="text" name="'.$campo['field'].'" '.$placeholder.' value="'. $value.'" data-mask="#####-###" />';
 						break;
 					default:
-						$html .= PHP_EOL.'<input type="'.$campo['tipo'].'" name="'.$campo['field'].'" id="gg2-campo-'.$campo['field'].'" placeholder="'.$campo['label'].'" '.$campo['extra_campo'].' value="'. $value.'" />';
+						$html .= PHP_EOL.'<input type="'.$campo['tipo'].'" name="'.$campo['field'].'" '.$placeholder.' value="'. $value.'" />';
 						break;
 				}
 				if ($campo['tipo'] !== 'hidden')
