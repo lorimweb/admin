@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * Neste arquivo ficam as funções helpers de html de dados
  * 
@@ -10,6 +10,8 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 if ( ! function_exists('menu_lateral'))
 {
 	/**
@@ -21,8 +23,14 @@ if ( ! function_exists('menu_lateral'))
 	{
 		$ci =& get_instance();
 		$ci->load->model('admins_menus_model');
-		$itens = $ci->admins_menus_model->lista(array('ativo' => 'S'));
-
+		$permissoes = json_decode($ci->session->userdata('permissoes'), TRUE);
+		$permissoes[''] = TRUE;
+		$filtro = array(
+			where_in('a.ativo', 'S'),
+			where_in('IFNULL(b.nome,"")', array_keys($permissoes))
+		);
+		// $ci->admins_menus_model->mostra_sql = TRUE;
+		$itens = $ci->admins_menus_model->lista($filtro);
 		return $itens['itens'];
 	}
 }

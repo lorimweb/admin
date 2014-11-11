@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Esta classe que persiste os dados dos menus do Painel administrativo no banco de dados
+ * Esta classe que persiste os dados das Ações dos Módulos do Painel administrativo no banco de dados
  *
  * @category  Site
  * @package   Models
@@ -11,7 +11,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Admins_menus_model extends MY_Model {
+class Modulos_acoes_model extends MY_Model {
 	/**
 	 * Construtor que inicializa a classe pai MY_Model
 	 * e configura o nome da tabela principal e das colunas da tabela.
@@ -21,9 +21,9 @@ class Admins_menus_model extends MY_Model {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->titulo = 'Admins -> Menus';
-		$this->tabela = 'admins_menus';
-		$this->colunas = 'id, titulo, link, modulo_id, ativo';
+		$this->titulo = 'Módulos -> Ações';
+		$this->tabela = 'modulos_acoes';
+		$this->colunas = 'id, modulo_id, nome, descricao, ativo';
 	}
 	/**
 	 * Função que retorna a lista com base na busca do BD
@@ -41,19 +41,32 @@ class Admins_menus_model extends MY_Model {
 	{
 		$tabelas = array(
 			array('nome' => $this->tabela.' a'),
-			array('nome' => 'modulos b', 'where' => 'a.modulo_id = b.id', 'tipo' => 'left'),
+			array('nome' => 'modulos b', 'where' => 'a.modulo_id = b.id', 'tipo' => 'inner'),
 		);
 		$colunas = 'a.id, 
 			b.descricao modulo,
-			a.titulo, 
-			a.link, 
+			a.nome, 
+			a.descricao, 
 			a.ativo,
 			a.modulo_id';
 		$ret = $this->itens($tabelas, $colunas, $filtro, $ordenar_por, $ordenar_sentido, $offset, $limite, $extra);
 		return $ret;
 	}
 	/**
-	 * cria a tabela dos menus
+	 * retorna um array com os nomes dos grupos
+	 *
+	 * @param array $filtro o filtro do sql
+	 *
+	 * @return array
+	 */
+	public function options($filtro = NULL)
+	{
+		$colunas = 'a.id, a.descricao nome';
+		$ret = $this->lista($filtro, 'b.nome', 'asc');
+		return $ret['itens'];
+	}
+	/**
+	 * cria a tabela dos grupos
 	 *
 	 * @return integer
 	 */
@@ -61,17 +74,16 @@ class Admins_menus_model extends MY_Model {
 	{
 		$sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tabela.'` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `titulo` varchar(30),
-		  `link` varchar(50) DEFAULT NULL,
-		  `modulo_id` int(11) DEFAULT NULL,
+		  `nome` varchar(30),
+		  `descricao` varchar(100),
 		  `ativo` set(\'S\',\'N\') NOT NULL,
-		  PRIMARY KEY (`id`),
-		  UNIQUE KEY `titulo` (`titulo`)
+		  `modulo_id` int(11) NOT NULL,
+		  PRIMARY KEY (`id`)
 		) ENGINE = MyISAM';
 		$this->db->query($sql);
 		return $this->db->affected_rows();
 	}
 }
 
-/* End of file admins_menus_model.php */
-/* Location: ./models/admins_menus_model.php */
+/* End of file modulos_acoes_model.php */
+/* Location: ./models/modulos_acoes_model.php */

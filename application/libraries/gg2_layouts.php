@@ -72,10 +72,11 @@ class Gg2_layouts {
 		$this
 			->arquivos_extras('https://fonts.googleapis.com/css?family=Open+Sans:400,600', FALSE, '')
 			->arquivos_extras(CSS . 'bootstrap.min.css')
-			->arquivos_extras(CSS . 'aplicacao.css')
 			->arquivos_extras(JS . 'jquery-1.11.0.min.js')
 			->arquivos_extras(JS . 'jquery.plugins.min.js')
 			->arquivos_extras(JS . 'bootstrap.min.js')
+
+			->arquivos_extras(CSS . 'aplicacao.css')
 			->arquivos_extras(JS . 'aplicacao.min.js')
 			->arquivos_extras(JS . 'aplicacao-barra-aux.min.js');
 	}

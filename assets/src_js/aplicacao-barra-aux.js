@@ -16,7 +16,7 @@ $(function() {
 		function selecionados() {
 			var valores = [];
 			for (var i=0;i<n_selecionados;i++) {
-				valores.push(itens_selecionados[i].val());
+				valores.push(itens_selecionados[i].value);
 			}
 			return valores;
 		}

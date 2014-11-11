@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * Neste arquivo ficam as funções helpers de html de dados
  * 
@@ -10,6 +10,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 if ( ! function_exists('mensagem_validacao'))
 {
@@ -65,7 +66,7 @@ if ( ! function_exists('tem_permissao'))
 		$ret = FALSE;
 		$ci =& get_instance();
 
-		$permissoes = $ci->session->userdata('permissoes');
+		$permissoes = json_decode($ci->session->userdata('permissoes'), TRUE);
 		if ( ! empty($permissoes) && count($permissoes))
 		{
 			$metodo = ($metodo === 'index') ? '' : $metodo;
@@ -82,8 +83,8 @@ if ( ! function_exists('tem_permissao'))
 			}
 		}
 
-		return TRUE;
-		// return $ret;
+		// return TRUE;
+		return $ret;
 	}
 }
 

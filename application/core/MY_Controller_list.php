@@ -158,7 +158,7 @@ abstract class MY_Controller_list extends MY_Controller {
 		if ( ! $exportar)
 		{
 			$config['botoes'] = $this->botoes_listar();
-			$config['selecionavel'] = empty($selecionavel) ? array('chave' => $this->meu_model->id, 'display' => 'none') : $selecionavel;
+			$config['selecionavel'] = empty($selecionavel) ? array('chave' => $this->meu_model->id, 'display' => 'inline-block') : $selecionavel;
 			$config['url'] = $url;
 			$config['ordenar_por'] = pega_chave_array($config['cabecalhos'], ($this->ordenar_por - 1));
 			$config['ordenar_sentido'] = $this->ordenar_sentido;

@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * Neste arquivo ficam as funções helpers de formatação de dados
  * 
@@ -10,6 +10,7 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 if ( ! function_exists('slug'))
 {

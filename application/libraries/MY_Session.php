@@ -148,7 +148,7 @@ class MY_Session extends CI_Session {
 		{
 			$this->set_userdata('usuario', $admin->id);
 			$this->set_userdata('nome', $admin->nome);
-			$this->set_userdata('permissoes', $admin->permissoes);
+			$this->set_userdata('permissoes', json_encode($admin->permissoes));
 			$this->set_userdata('menu', $admin->menu);
 		}
 		$this->_gravar($this->userdata('session_id'), $this->userdata('usuario'));

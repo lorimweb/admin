@@ -21,11 +21,14 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	 */
 	private $_modulos = array(
 		'admins',
+		'admins_grupos',
 		'admins_menus',
 		'banneres',
 		'configuracoes',
 		'contatos',
 		'noticias',
+		'modulos_acoes',
+		'modulos',
 		'paginas',
 	);
 	/**
@@ -86,7 +89,7 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 		$this->_modulos = array_reverse($this->_modulos);
 		foreach ($this->_modulos as $modulo)
 		{
-			$this->{$modulo.'_model'}->remover_tabela();
+			$this->{$modulo . '_model'}->remover_tabela();
 		}
 	}
 	/**
@@ -96,20 +99,11 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 	 */
 	private function _add_registros()
 	{
-		$this->_add_registros_menus();
-	}
-	/**
-	 * adiciona os menus padrão
-	 *
-	 * @return integer
-	 */
-	private function _add_registros_menus()
-	{
 		$data = array();
 		foreach ($this->_modulos as $modulo)
 		{
 			$data[] = array(
-				'titulo'  => $this->{$modulo.'_model'}->titulo,
+				'titulo'  => $this->{$modulo . '_model'}->titulo,
 				'link' => $modulo,
 				'ativo' => 'S'
 			);
@@ -121,9 +115,15 @@ class Migration_cria_estrutura_inicial extends CI_Migration {
 		);
 		foreach ($data as $dados)
 		{
-			$this->db->insert('admins_menus', $dados);
+			$this->admins_menus_model->adicionar($dados);
+			$dados['nome'] = $dados['link'];
+			$dados['descricao'] = $dados['titulo'];
+			unset($dados['link'], $dados['titulo']);
+			$this->modulos_model->adicionar($dados);
 		}
-		return $this->db->insert_id();
+		$sql = 'INSERT INTO admins_grupos_permissoes (acao_id, grupo_id) (SELECT id, 1 FROM modulos_acoes)';
+		$this->db->query($sql);
+		return count($data);
 	}
 }
 

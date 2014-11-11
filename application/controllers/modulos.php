@@ -2,7 +2,7 @@
 require_once (APPPATH . 'core/MY_Controller_crud.php');
 
 /**
- * Esta classe que controla os Menus do painel administrativo
+ * Esta classe que controla os Módulos do site
  *
  * @category  Site
  * @package   Controllers
@@ -12,13 +12,7 @@ require_once (APPPATH . 'core/MY_Controller_crud.php');
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
-class Admins_menus extends MY_Controller_crud {	
-	/**
-	 * Array com os grupos disponíveis.
-	 * 
-	 * @var array
-	 */
-	private $_modulos = array();
+class Modulos extends MY_Controller_crud {
 	/**
 	 * Controi a classe e inicializa os parametros do crud
 	 * como o cabecalho da listagem as regras de validacao
@@ -29,14 +23,11 @@ class Admins_menus extends MY_Controller_crud {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('admins_menus_model');
 		$this->load->model('modulos_model');
-		$this->meu_model = $this->admins_menus_model;
-		$this->_modulos = $this->modulos_model->options();
+		$this->meu_model = $this->modulos_model;
 		$this->_init_cabecalho();
 		$this->_init_validacao();
 	}
-
 	/**
 	 * inicializa/configura as regras de validação e os campos do formulário dinamico.
 	 *
@@ -46,10 +37,9 @@ class Admins_menus extends MY_Controller_crud {
 	private function _init_validacao()
 	{
 		$this->validacao = array(
-			regra_validacao('modulo_id', 'Módulo', '', 'class="col-md-6"', '', 'select', $this->_modulos),
-			regra_validacao('titulo', 'Título', 'trim|required', 'class="col-md-4"'),
-			regra_validacao('link', 'Link', '', 'class="col-md-4"'),
-			regra_validacao('ativo', 'Ativo', '', 'class="col-md-4"', '', 'select', sim_nao()),
+			regra_validacao('nome', 'Nome', '', 'class="col-md-5"'),
+			regra_validacao('descricao', 'Descrição', '', 'class="col-md-5"'),
+			regra_validacao('ativo', 'Ativo', '', 'class="col-md-2"', '', 'select', sim_nao()),
 		);
 	}
 	/**
@@ -61,11 +51,10 @@ class Admins_menus extends MY_Controller_crud {
 	private function _init_cabecalho()
 	{
 		$this->cabecalho = array(
-			'id' 	 => 'ID',
-			'modulo' => 'Módulo',
-			'titulo' => 'Título',
-			'link'	 => 'Link',
-			'ativo'	 => 'Ativo',
+			'id' => 'ID',
+			'nome' => 'Nome',
+			'descricao' => 'Descrição',
+			'ativo' => 'Ativo',
 		);
 	}
 	/**
@@ -80,16 +69,29 @@ class Admins_menus extends MY_Controller_crud {
 	 */
 	protected function init_filtros($valores = array(), $url = '')
 	{
-		$itens[] = filtro_config('a.id', 'ID', 'where');
-		$itens[] = filtro_config('a.modulo_id', 'Módulo', 'where', 'select', $this->_modulos);
-		$itens[] = filtro_config('a.titulo', 'Título', 'like');
-		// $itens[] = filtro_config('link', 'Link', 'like');
-		$itens[] = filtro_config('a.ativo', 'Ativo', 'where', 'select', sim_nao());
+		$itens[] = filtro_config('id', 'ID', 'where');
+		$itens[] = filtro_config('descricao', 'Descrição', 'like');
+		$itens[] = filtro_config('ativo', 'Ativo', 'where', 'select', sim_nao());
 
 		$filtros = $this->gg2_filtros->init($itens, $valores, $url, count($itens), $this->botoes_filtro());
 		return $filtros;
 	}
+	/**
+	 * Remove os dados da base de dados
+	 * e retorna o numero de linhas removidas.
+	 *
+	 * @param string $id o valor do item identificador
+	 * 
+	 * @return integer
+	 */
+	protected function salva_remover($id = 0)
+	{
+		$this->load->model('modulos_acoes_model');
+		$selecionados = ($id) ? array($id) : $this->input->post('selecionados');
+		$this->modulos_acoes_model->excluir('modulo_id in ('.implode(',', $selecionados).')');
+		return $this->meu_model->excluir($this->meu_model->id.' in ('.implode(',', $selecionados).')');
+	}
 }
 
-/* End of file admins_menus.php */
-/* Location: ./controllers/admins_menus.php */
+/* End of file modulos.php */
+/* Location: ./controllers/modulos.php */

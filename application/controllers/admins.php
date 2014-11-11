@@ -14,6 +14,12 @@ require_once (APPPATH . 'core/MY_Controller_crud.php');
  */
 class Admins extends MY_Controller_crud {
 	/**
+	 * Array com os grupos disponíveis.
+	 * 
+	 * @var array
+	 */
+	private $_grupos = array();
+	/**
 	 * Controi a classe e inicializa os parametros do crud
 	 * como o cabecalho da listagem as regras de validacao
 	 *
@@ -24,7 +30,9 @@ class Admins extends MY_Controller_crud {
 	{
 		parent::__construct();
 		$this->load->model('admins_model');
+		$this->load->model('admins_grupos_model');
 		$this->meu_model = $this->admins_model;
+		$this->_grupos = $this->admins_grupos_model->options();
 		$this->_init_cabecalho();
 		$this->_init_validacao();
 	}
@@ -39,6 +47,7 @@ class Admins extends MY_Controller_crud {
 	{
 		$unico = ($this->acao === 'adicionar') ? '|is_unique['.$this->meu_model->tabela.'.login' : '';
 		$this->validacao['adicionar'] = array(
+			regra_validacao('grupo_id', 'Grupo de Acesso', '', 'class="col-md-12"', '', 'select', $this->_grupos),
 			regra_validacao('nome', 'Nome', '', 'class="col-md-6"'),
 			regra_validacao('login', 'Login', 'trim|required'.$unico, 'class="col-md-6"'),
 			regra_validacao('senha', 'Senha', '', 'class="col-md-6"'),
@@ -59,6 +68,7 @@ class Admins extends MY_Controller_crud {
 		$this->cabecalho = array(
 			'listar' => array(
 				'id' 	=> 'ID',
+				'grupo' => 'Grupo de Acesso',
 				'nome'	=> 'Nome',
 				'login'	=> 'Login',
 				'ativo'	=> 'Ativo',
@@ -82,10 +92,32 @@ class Admins extends MY_Controller_crud {
 	protected function dados_formulario($prefix = '')
 	{
 		$data = parent::dados_formulario($prefix);
-		if ( ! empty($data['senha']))
+		if ( ! empty($data['senha']) && strlen($data['senha']) !== 32)
 			$data['senha'] = $this->meu_model->criptografa($data['login'], $data['senha']);
-
+		else
+			unset($data['senha']);
 		return $data;
+	}
+	/**
+	 * inicializa e configura os filtros que vieram do formulário da busca
+	 * tambem configura o html do formulario da busca
+	 * 
+	 * @param array  $valores os valores que vieram via get do formulário de busca
+	 * @param string $url     a url base do formulário de busca
+	 *
+	 * @return Gg2_filtro
+	 *
+	 */
+	protected function init_filtros($valores = array(), $url = '')
+	{
+		$itens[] = filtro_config('a.id', 'ID', 'where');
+		$itens[] = filtro_config('a.grupo_id', 'Grupo', 'where', 'select', $this->_grupos);
+		$itens[] = filtro_config('a.nome', 'Nome', 'like');
+		// $itens[] = filtro_config('login', 'Login', 'like');
+		$itens[] = filtro_config('a.ativo', 'Ativo', 'where', 'select', sim_nao());
+
+		$filtros = $this->gg2_filtros->init($itens, $valores, $url, count($itens), $this->botoes_filtro());
+		return $filtros;
 	}
 }
 

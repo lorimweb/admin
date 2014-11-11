@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * Neste arquivo ficam as funções helpers extras
  * algumas funções básicas para auxiliar na programação
@@ -11,7 +11,35 @@
  * @version   Release: 1.0
  * @link      http://gg2.com.br
  */
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+if ( ! function_exists('where_in'))
+{
+	/**
+	 * =========== where_in ==============
+	 * função que gera sql WHERE ou WHERE in 
+	 * dependendo da quantidade de valores a filtrar
+	 *
+	 * @param string $campo   campo a filtrar na consulta
+	 * @param array  $valores valores a filtrar
+	 * 
+	 * @return array
+	 *
+	 */
+	function where_in($campo, $valores)
+	{
+		$funcao_ci = 'where';
+		if (is_array($valores))
+		{
+			if(count($valores))
+				$funcao_ci = 'where_in';
+			else
+				$valores = NULL;
+		}
+
+		return array('funcao_ci' => $funcao_ci, 'campo' => $campo, 'valor' => $valores);
+	}
+}
 if ( ! function_exists('pega_chave_array'))
 {
 	/**
