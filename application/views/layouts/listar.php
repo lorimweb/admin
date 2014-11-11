@@ -37,6 +37,14 @@
 <?php endif; ?>
 </div>
 
+<nav class="navbar navbar-default navbar-fixed-bottom hide" role="navigation" id="gg2-barra-aux">
+	<div class="container">
+		<div class="navbar-text" id="gg2-barra-texto">Você tem 50 Iten(s) selecionado(s)</div>
+		<form class="navbar-form navbar-right">
+			<div id="gg2-barra-botoes"></div>
+		</form>
+	</div>
+</nav>
 <script type="text/javascript">
 <?php 
 if (isset($acoes) && count($acoes)):

@@ -76,7 +76,8 @@ class Gg2_layouts {
 			->arquivos_extras(JS . 'jquery-1.11.0.min.js')
 			->arquivos_extras(JS . 'jquery.plugins.min.js')
 			->arquivos_extras(JS . 'bootstrap.min.js')
-			->arquivos_extras(JS . 'aplicacao.min.js');
+			->arquivos_extras(JS . 'aplicacao.min.js')
+			->arquivos_extras(JS . 'aplicacao-barra-aux.min.js');
 	}
 
 	/**

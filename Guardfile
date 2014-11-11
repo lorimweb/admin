@@ -13,10 +13,11 @@ end
 
 guard :concat, type: "js", files: %w(transition alert button carousel collapse dropdown modal tooltip popover scrollspy tab affix), input_dir: "assets/src_js", output: "assets/src_js/bootstrap.min"
 guard :concat, type: "js", files: %w(aplicacao), input_dir: "assets/src_js", output: "assets/src_js/aplicacao.min"
+guard :concat, type: "js", files: %w(aplicacao-barra-aux), input_dir: "assets/src_js", output: "assets/src_js/aplicacao-barra-aux.min"
 
 guard :concat, type: "js", files: %w(jquery.validate jquery.mask), input_dir: "assets/src_js", output: "assets/src_js/jquery.plugins.min"
 
 
-guard 'sprockets', :destination => 'assets/js', :asset_paths => ['assets/src_js'], :root_file => ['bootstrap.min.js', 'aplicacao.min.js', 'jquery.plugins.min.js'], :minify => true do
+guard 'sprockets', :destination => 'assets/js', :asset_paths => ['assets/src_js'], :root_file => ['bootstrap.min.js', 'aplicacao.min.js', 'aplicacao-barra-aux.min.js', 'jquery.plugins.min.js'], :minify => true do
   watch(%r{^.*\.js$})
 end
