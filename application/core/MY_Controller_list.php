@@ -100,13 +100,13 @@ abstract class MY_Controller_list extends MY_Controller {
 		$botoes = array();
 		if (tem_permissao($this->modulo, 'adicionar'))
 		{
-			$botoes[] = '<a class="btn btn-default" id="adicionar_' . $this->modulo . '" href="' . site_url($this->modulo . '/adicionar') . '"> '.
+			$botoes[] = '<a class="btn btn-default" id="adicionar_' . $this->modulo . '" href="' . site_url($this->modulo . '/adicionar') . '"> ' .
 				'<i class="glyphicon glyphicon-plus"></i> Adicionar Novo</a>';
 		}
 		if (tem_permissao($this->modulo, 'exportar'))
 		{
 			$query = $this->input->query_string();
-			$botoes[] = ' <a class="btn btn-default" id="exportar_xls" href="' . site_url($this->modulo . '/exportar/?' . $query) .'"> '.
+			$botoes[] = ' <a class="btn btn-default" id="exportar_xls" href="' . site_url($this->modulo . '/exportar/?' . $query) .'"> ' .
 				'<i class="glyphicon glyphicon-download-alt"></i> Exportar Dados</a>';
 		}
 
@@ -122,18 +122,18 @@ abstract class MY_Controller_list extends MY_Controller {
 		$botoes = array();
 		if (tem_permissao($this->modulo, 'ver'))
 		{
-			$botoes[] = '<a href="'.site_url($this->modulo . '/ver/[id]').'" title="Vizualizar Item ID: [id]"> '.
+			$botoes[] = '<a href="'.site_url($this->modulo . '/ver/[id]').'" class="acao-ver" title="Vizualizar Item ID: [id]"> ' .
 				'<i class="glyphicon glyphicon-folder-open"></i></a>';
 		}
 		if (tem_permissao($this->modulo, 'editar'))
 		{
-			$botoes[] = '<a href="'.site_url($this->modulo . '/editar/[id]').'" title="Alterar Item ID: [id]"> ' .
+			$botoes[] = '<a href="'.site_url($this->modulo . '/editar/[id]').'" class="acao-editar" title="Alterar Item ID: [id]"> ' .
 				'<i class="glyphicon glyphicon-pencil"></i></a>';
 
 		}
 		if (tem_permissao($this->modulo, 'remover'))
 		{
-			$botoes[] = '<a href="'.site_url($this->modulo . '/remover/[id]').'" title="Remover Item ID: [id]"> ' .
+			$botoes[] = '<a href="'.site_url($this->modulo . '/remover/[id]').'" class="acao-remover" title="Remover Item ID: [id]"> ' .
 				'<i class="glyphicon glyphicon-trash"></i></a>';
 		}
 
