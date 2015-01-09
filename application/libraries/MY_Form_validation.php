@@ -12,9 +12,16 @@
  * @link      http://gg2.com.br
  */
 class MY_Form_validation extends CI_Form_validation {
-	public function __construct()
+	/**
+	 * Construtor que inicializa a biblioteca Form Validation
+	 *
+	 * @param array $params os parametros da configuracao inicial
+	 *
+	 * @return void
+	 */
+	public function __construct($params = array())
 	{
-		parent::__construct();
+		parent::__construct($params);
 	}
 
 	/**

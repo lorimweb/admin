@@ -27,11 +27,13 @@ class MY_Session extends CI_Session {
 	/**
 	 * Construtor que inicializa a biblioteca da sessao
 	 *
+	 * @param array $params os parametros da configuracao inicial da sessao
+	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct($params = array())
 	{
-		parent::__construct();
+		parent::__construct($params);
 		$this->_db = $this->CI->db;
 	}
 
